@@ -1,0 +1,14 @@
+name: CPP Azure FunctionApp Deployment
+trigger: none
+pr:
+- main
+
+resources:
+  repositories:
+  - repository: cppAzureDevOpsTemplates
+    type: github
+    name: hmcts/cpp-azure-devops-templates
+    endpoint: 'cpp-apps'
+
+extends:
+  template: azure-pipelines.yaml@cppAzureDevOpsTemplates
