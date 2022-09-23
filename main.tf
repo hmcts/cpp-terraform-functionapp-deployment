@@ -12,7 +12,7 @@ module "functionapp" {
   asp_os_type                               = var.asp_os_type
   asp_instance_size                         = var.asp_instance_size
   asp_sku                                   = var.asp_sku
-  function_app_application_settings         = var.function_app_application_settings
+  function_app_application_settings         = merge(var.function_app_application_settings, local.function_app_application_settings_sensitive)
   site_config                               = var.site_config
   application_insights_enabled              = var.application_insights_enabled
   application_zip_package_path              = var.application_zip_package_path

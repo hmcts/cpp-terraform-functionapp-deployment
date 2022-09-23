@@ -13,6 +13,10 @@ function_app_application_settings = {
   WEBSITE_RUN_FROM_PACKAGE           = 1
 }
 
+function_app_application_settings_sensitive = {
+  SMTP_SETTINGS = "secret/dev/devccm01/o365_email_password"
+}
+
 site_config = {
   use_32_bit_worker_process = true
 }
