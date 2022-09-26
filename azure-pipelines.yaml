@@ -3,6 +3,27 @@ trigger: none
 pr:
 - main
 
+parameters:
+- name: environment
+  displayName: Environment and Terraform Workspace
+  type: string
+  default: dev
+  values:
+  - dev
+  - sit
+  - nft
+  - prp
+  - prx
+  - prd
+- name: spnCredentialsVarGroup
+  default: "terratest-app-registration"
+- name: azureServiceConnection
+  default: "ado_nonlive_service_principal_lab"
+- name: tfversion
+  default: 1.2.3
+- name: agentPool
+  default: "ubuntu-latest"
+
 resources:
   repositories:
   - repository: cppAzureDevOpsTemplates
@@ -10,5 +31,18 @@ resources:
     name: hmcts/cpp-azure-devops-templates
     endpoint: 'cpp-apps'
 
-extends:
-  template: azure-pipelines.yaml@cppAzureDevOpsTemplates
+stages:
+  - stage: precommit
+    jobs:
+    - job: pre
+      pool:
+        vmImage: ${{ parameters.agentPool }}
+      steps:
+        - task: CopyFiles@1
+          displayName: Copy Terraform Files
+          inputs:
+            TargetFolder: ${Build.ArtifcatStagingDirectory}
+            cleanTargetFolder: true
+        - template: steps/common/precommit.yaml@cppAzureDevOpsTemplates
+          parameters:
+            tfversion: ${{ parameters.tfversion }}

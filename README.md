@@ -1,2 +1,1 @@
 # cpp-azure-functionapp-deployment
-
