@@ -38,11 +38,11 @@ stages:
       pool:
         vmImage: ${{ parameters.agentPool }}
       steps:
-        - task: CopyFiles@1
-          displayName: Copy Terraform Files
-          inputs:
-            TargetFolder: ${Build.ArtifcatStagingDirectory}
-            cleanTargetFolder: true
-        - template: steps/common/precommit.yaml@cppAzureDevOpsTemplates
+        # - task: CopyFiles@1
+        #   displayName: Copy Terraform Files
+        #   inputs:
+        #     TargetFolder: ${Build.ArtifcatStagingDirectory}
+        #     cleanTargetFolder: true
+        - template: steps/terraform/terraform-precommit.yaml@cppAzureDevOpsTemplates
           parameters:
             tfversion: ${{ parameters.tfversion }}
