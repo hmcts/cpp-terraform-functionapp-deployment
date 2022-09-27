@@ -3,6 +3,27 @@ trigger: none
 pr:
 - main
 
+parameters:
+- name: environment
+  displayName: Environment and Terraform Workspace
+  type: string
+  default: dev
+  values:
+  - dev
+  - sit
+  - nft
+  - prp
+  - prx
+  - prd
+- name: spnCredentialsVarGroup
+  default: "terratest-app-registration"
+- name: azureServiceConnection
+  default: "ado_nonlive_service_principal_lab"
+- name: tfversion
+  default: 1.2.8
+- name: agentPool
+  default: "ubuntu-latest"
+
 resources:
   repositories:
   - repository: cppAzureDevOpsTemplates
@@ -10,5 +31,28 @@ resources:
     name: hmcts/cpp-azure-devops-templates
     endpoint: 'cpp-apps'
 
-extends:
-  template: azure-pipelines.yaml@cppAzureDevOpsTemplates
+stages:
+  - stage: precommit
+    jobs:
+    - job: precommit checks
+      pool:
+        vmImage: ${{ parameters.agentPool }}
+      steps:
+        - task: TerraformInstaller@0
+          displayName: Terraform install
+          inputs:
+            terraformVersion: ${{ parameters.tfversion }}
+        # - task: TerraformCLI@0
+        #   displayName: Terraform Init
+        #   inputs:
+        #     command: 'init'
+        #     commandOptions: '-lock=false' # don't lock on PRs / validate phase
+        - task: CmdLine@2
+          displayName: 'Run pre-commit static analysis'
+          inputs:
+            targetType: 'inline'
+            script: |
+              curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+              python3 -m pip install --upgrade pip
+              pip3 install pre-commit
+              pre-commit run --all-files --show-diff-on-failure
