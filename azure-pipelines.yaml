@@ -34,7 +34,7 @@ resources:
 stages:
   - stage: precommit
     jobs:
-    - job: pre
+    - job: precommit checks
       pool:
         vmImage: ${{ parameters.agentPool }}
       steps:
