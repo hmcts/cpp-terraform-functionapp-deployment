@@ -17,7 +17,7 @@ parameters:
   - prd
 - name: application
   displayName: The name of the application
-  default: null
+  default: notifyatt
 - name: spnCredentialsVarGroup
   default: "terratest-app-registration"
 - name: azureServiceConnection
@@ -66,17 +66,11 @@ stages:
       pool:
         vmImage: ${{ parameters.agentPool }}
       steps:
-        - task: CopyFiles@2
-          displayName: Copy Terraform files
-          inputs:
-            TargetFolder: $(Build.ArtifactStagingDirectory)
-            cleanTargetFolder: true
-
         - task: TerraformTaskV3@3
           displayName: Terraform Init
           inputs:
             command: 'init'
-            workingDirectory: '$(Build.ArtifactStagingDirectory)'
+            workingDirectory: '$(System.DefaultWorkingDirectory)'
             commandOptions: '-lock=false' # don't lock on PRs / validate phase
             backendType: 'azurerm'
             backendServiceArm: ${{ parameters.azureServiceConnection }}
@@ -92,6 +86,52 @@ stages:
           inputs:
             command: 'plan'
             environmentServiceNameAzureRM: ${{ parameters.azureServiceConnection }}
-            workingDirectory: '$(Build.ArtifactStagingDirectory)'
-            commandOptions: '-var-file=$(Build.ArtifactStagingDirectory)/vars/${{ parameters.environment }}/${{ parameters.application }}.tfvars -out=tfplan-${{ parameters.application }}.tf'
+            workingDirectory: '$(System.DefaultWorkingDirectory)'
+            commandOptions: '-var-file=$(System.DefaultWorkingDirectory)/vars/${{ parameters.environment }}/${{ parameters.application }}.tfvars -out=$(System.DefaultWorkingDirectory)/tfplan-${{ parameters.application }}.out'
             publishPlanResults: $(System.StageDisplayName)
+
+        - task: ArchiveFiles@2
+          displayName: 'Create Plan Artifact'
+          inputs:
+            rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+            includeRootFolder: false
+            archiveType: 'zip'
+            archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+            replaceExistingArchive: true
+
+        - task: PublishBuildArtifacts@1
+          displayName: 'Publish Plan Artifact'
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: 'drop'
+            publishLocation: 'Container'
+
+  - stage: terraform_apply
+    dependsOn:
+      - terraform_plan
+    condition: and(succeeded('terraform_plan'), ne(variables['Build.Reason'], 'PullRequest'))
+    jobs:
+    - job: terraform_apply
+      pool:
+        vmImage: ${{ parameters.agentPool }}
+      steps:
+      - task: DownloadBuildArtifacts@1
+        displayName: 'Download Plan Artifact'
+        inputs:
+          artifactName: 'drop'
+          downloadPath: '$(Build.ArtifactStagingDirectory)'
+
+      - task: ExtractFiles@1
+        displayName: 'Extract Plan Artifact'
+        inputs:
+          archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/drop/$(Build.BuildId).zip'
+          destinationFolder: '$(System.DefaultWorkingDirectory)/drop/'
+          cleanTargetFolder: false
+
+      - task: TerraformTaskV3@3
+        displayName: Terraform Apply
+        inputs:
+          command: 'apply'
+          environmentServiceNameAzureRM: ${{ parameters.azureServiceConnection }}
+          workingDirectory: '$(System.DefaultWorkingDirectory)/drop/'
+          commandOptions: '-auto-approve tfplan-${{ parameters.application }}.out'
