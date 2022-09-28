@@ -15,14 +15,19 @@ parameters:
   - prp
   - prx
   - prd
+- name: application
+  displayName: The name of the application
+  default: null
 - name: spnCredentialsVarGroup
   default: "terratest-app-registration"
 - name: azureServiceConnection
-  default: "ado_nonlive_service_principal_lab"
+  default: "HMCTS Non-Live"
 - name: tfversion
   default: 1.2.8
 - name: agentPool
   default: "ubuntu-latest"
+- name: storageName
+  default: "samdvshared01"
 
 resources:
   repositories:
@@ -34,7 +39,7 @@ resources:
 stages:
   - stage: precommit
     jobs:
-    - job: precommit checks
+    - job: precommit_checks
       pool:
         vmImage: ${{ parameters.agentPool }}
       steps:
@@ -42,11 +47,6 @@ stages:
           displayName: Terraform install
           inputs:
             terraformVersion: ${{ parameters.tfversion }}
-        # - task: TerraformCLI@0
-        #   displayName: Terraform Init
-        #   inputs:
-        #     command: 'init'
-        #     commandOptions: '-lock=false' # don't lock on PRs / validate phase
         - task: CmdLine@2
           displayName: 'Run pre-commit static analysis'
           inputs:
@@ -56,3 +56,45 @@ stages:
               python3 -m pip install --upgrade pip
               pip3 install pre-commit
               pre-commit run --all-files --show-diff-on-failure
+
+  - stage: terraform_plan
+    dependsOn:
+      - precommit
+    condition: succeeded('precommit')
+    jobs:
+    - job: terraform_plan
+      pool:
+        vmImage: ${{ parameters.agentPool }}
+      steps:
+        - task: CopyFiles@2
+          displayName: Copy Terraform files
+          inputs:
+            TargetFolder: $(Build.ArtifactStagingDirectory)
+            cleanTargetFolder: true
+
+        - task: TerraformTaskV3@3
+          displayName: Terraform Init
+          inputs:
+            command: 'init'
+            workingDirectory: '$(Build.ArtifactStagingDirectory)'
+            commandOptions: '-lock=false' # don't lock on PRs / validate phase
+            backendType: 'azurerm'
+            backendServiceArm: ${{ parameters.azureServiceConnection }}
+            backendAzureRmResourceGroupName: 'RG-MDV-SHARED-01'
+            backendAzureRmResourceGroupLocation: 'uksouth'
+            backendAzureRmStorageAccountName: '${{ parameters.storageName }}'
+            backendAzureRmStorageAccountSku: Standard_LRS
+            backendAzureRmContainerName: 'automation-terraform-functionapp'
+            backendAzureRmKey: '${{ parameters.environment }}/terraform-${{ parameters.environment }}.tfstate'
+
+        - task: TerraformTaskV3@3
+          displayName: Terraform Plan
+          inputs:
+            command: 'plan'
+            environmentServiceNameAzureRM: ${{ parameters.azureServiceConnection }}
+            workingDirectory: '$(Build.ArtifactStagingDirectory)'
+            commandOptions: '-var-file=$(Build.ArtifactStagingDirectory)/vars/${{ parameters.environment }}/${{ parameters.application }}.tfvars -out=tfplan-${{ parameters.application }}.tf'
+            publishPlanResults: $(System.StageDisplayName)
+          env:
+            VAULT_ADDR: $(VAULT_ADDRESS)
+            VAULT_TOKEN: $(VAULT_TOKEN_ID)
