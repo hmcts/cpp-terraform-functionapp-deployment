@@ -95,6 +95,3 @@ stages:
             workingDirectory: '$(Build.ArtifactStagingDirectory)'
             commandOptions: '-var-file=$(Build.ArtifactStagingDirectory)/vars/${{ parameters.environment }}/${{ parameters.application }}.tfvars -out=tfplan-${{ parameters.application }}.tf'
             publishPlanResults: $(System.StageDisplayName)
-          env:
-            VAULT_ADDR: $(VAULT_ADDRESS)
-            VAULT_TOKEN: $(VAULT_TOKEN_ID)

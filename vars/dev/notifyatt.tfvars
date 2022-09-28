@@ -14,7 +14,7 @@ function_app_application_settings = {
 }
 
 function_app_application_settings_sensitive = {
-  SMTP_SETTINGS = "secret/dev/devccm01/o365_email_password"
+  SMTP_SETTINGS = "ado--dev--devccm01--o365-email-password"
 }
 
 site_config = {
