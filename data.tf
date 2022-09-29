@@ -1,5 +1,10 @@
+data "azurerm_key_vault" "main" {
+  name                = "KV-MDV-TFE-01"
+  resource_group_name = "RG-MDV-TFE-01"
+}
 
-data "vault_kv_secret" "secret_data" {
-  for_each = var.function_app_application_settings_sensitive
-  path     = each.value
+data "azurerm_key_vault_secret" "main" {
+  for_each     = var.function_app_application_settings_sensitive
+  name         = each.value
+  key_vault_id = data.azurerm_key_vault.main.id
 }
