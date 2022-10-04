@@ -16,6 +16,11 @@ module "functionapp" {
   site_config                               = var.site_config
   application_insights_enabled              = var.application_insights_enabled
   application_zip_package_path              = var.application_zip_package_path
+  logicapp_enabled                          = var.logicapp_enabled
+  logicapp_template                         = var.logicapp_template
+  logicapp_parameters                       = var.logicapp_parameters
+  logicapp_api_connection_template          = var.logicapp_api_connection_template
+  logicapp_api_connection_parameters        = var.logicapp_api_connection_parameters
 
   namespace   = var.namespace
   costcode    = var.costcode
