@@ -90,7 +90,7 @@ stages:
             commandOptions: '-var-file=$(System.DefaultWorkingDirectory)/vars/${{ parameters.environment }}/${{ parameters.application }}.tfvars -out=$(System.DefaultWorkingDirectory)/tfplan-${{ parameters.application }}.out'
             publishPlanResults: $(System.StageDisplayName)
 
-        - task: ArchiveFiles@2
+        - task: ArchiveFiles@2.211.0
           displayName: 'Create Plan Artifact'
           inputs:
             rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
