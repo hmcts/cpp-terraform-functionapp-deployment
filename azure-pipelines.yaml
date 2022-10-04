@@ -99,7 +99,7 @@ stages:
             archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
             replaceExistingArchive: true
 
-        - task: PublishBuildArtifacts@1
+        - task: PublishBuildArtifacts@1.211.0
           displayName: 'Publish Plan Artifact'
           inputs:
             PathtoPublish: '$(Build.ArtifactStagingDirectory)'
