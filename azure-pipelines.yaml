@@ -121,7 +121,7 @@ stages:
           artifactName: 'drop'
           downloadPath: '$(Build.ArtifactStagingDirectory)'
 
-      - task: ExtractFiles@1
+      - task: ExtractFiles@1.211.0
         displayName: 'Extract Plan Artifact'
         inputs:
           archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/drop/$(Build.BuildId).zip'
