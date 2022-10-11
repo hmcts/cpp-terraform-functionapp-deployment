@@ -260,8 +260,7 @@ logicapp_template = <<EOT
                                 "path": "/v2/Mail"
                             }
                         }
-                    },
-                    "outputs": {}
+                    }
                 },
                 "parameters": {
                     "$connections": {
