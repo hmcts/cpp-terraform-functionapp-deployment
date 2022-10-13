@@ -1,0 +1,7 @@
+variables:
+- name: azureServiceConnection
+  value: "ado_live_service_principal"
+- name: spnCredentialsVarGroup
+  value: "cpp-live-terraform-service-principal"
+- name: vaultAdminCredentialsVarGroup
+  value: cpp-live-vault-admin
