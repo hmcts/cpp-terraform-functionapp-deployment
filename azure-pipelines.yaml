@@ -15,7 +15,7 @@ parameters:
   - prp
   - prx
   - prd
-- name: tfvars
+- name: functionapp
   displayName: The name of the application
   default: notifyatt
 - name: tfversion
@@ -62,5 +62,5 @@ stages:
         vaultAdminCredentialsVarGroup: ${{ variables.vaultAdminCredentialsVarGroup }}
         platform: ${{ parameters.platform }}
         environment: ${{ parameters.environment }}
-        tfvars: ${{ parameters.tfvars }}
+        tfvars: ${{ parameters.functionapp }}
         agentPool: ${{ parameters.agentPool }}
