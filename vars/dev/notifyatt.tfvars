@@ -4,6 +4,9 @@ storage_account_identity_type = "SystemAssigned"
 asp_os_type = "Windows"
 asp_sku     = "P1v2"
 
+create_service_plan = false
+service_plan_name =  "as-test"
+
 functionapp_package = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/notification/notify/notificationnotify-azure-functions/8.0.2/notificationnotify-azure-functions-8.0.2.zip"
 function_app_application_settings = {
   FUNCTIONS_EXTENSION_VERSION        = "~2"
