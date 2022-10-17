@@ -4,13 +4,13 @@ storage_account_identity_type = "SystemAssigned"
 asp_os_type = "Windows"
 asp_sku     = "P1v2"
 
+functionapp_package = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/notification/notify/notificationnotify-azure-functions/8.0.2/notificationnotify-azure-functions-8.0.2.zip"
 function_app_application_settings = {
   FUNCTIONS_EXTENSION_VERSION        = "~2"
   ENABLE_ORYX_BUILD                  = false
   SCM_DO_BUILD_DURING_DEPLOYMENT     = false
   FUNCTIONS_WORKER_RUNTIME           = "java"
   WEBSITE_HTTPLOGGING_RETENTION_DAYS = 3
-  WEBSITE_RUN_FROM_PACKAGE           = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/notification/notify/notificationnotify-azure-functions/8.0.2/notificationnotify-azure-functions-8.0.2.zip"
 }
 
 function_app_application_settings_sensitive = {
@@ -180,7 +180,7 @@ logicapp_template = <<EOT
                                     "reference": "@triggerBody()?['reference']"
                                 },
                                 "function": {
-                                    "id": "/subscriptions/e6b5053b-4c38-4475-a835-a025aeb3d8c7/resourceGroups/rg-dev-cpp-notifyatt/providers/Microsoft.Web/sites/fa-dev-ccp-notifyatt/functions/generate-notification-email"
+                                    "id": "/subscriptions/e6b5053b-4c38-4475-a835-a025aeb3d8c7/resourceGroups/rg-dev-cpp-notifyatt/providers/Microsoft.Web/sites/fa-dev-cpp-notifyatt/functions/generate-notification-email"
                                 },
                                 "queries": {
                                     "templateId": "@{triggerBody()['templateId']}"

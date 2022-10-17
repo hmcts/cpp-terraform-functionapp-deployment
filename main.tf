@@ -13,9 +13,9 @@ module "functionapp" {
   asp_instance_size                         = var.asp_instance_size
   asp_sku                                   = var.asp_sku
   function_app_application_settings         = merge(var.function_app_application_settings, local.function_app_application_settings_sensitive)
+  functionapp_package                       = var.functionapp_package
   site_config                               = var.site_config
   application_insights_enabled              = var.application_insights_enabled
-  application_zip_package_path              = var.application_zip_package_path
   logicapp_enabled                          = var.logicapp_enabled
   logicapp_template                         = var.logicapp_template
   logicapp_parameters                       = var.logicapp_parameters
