@@ -21,7 +21,7 @@ module "functionapp" {
   logicapp_parameters                       = var.logicapp_parameters
   logicapp_api_connection_template          = var.logicapp_api_connection_template
   logicapp_api_connection_parameters        = var.logicapp_api_connection_parameters
-  service_plan_name                         = var.service_plan_name ? var.service_plan_name : "as-${var.environment}-${var.namespace}-${var.application}"
+  service_plan_name                         = var.service_plan_name != null ? var.service_plan_name : "as-${var.environment}-${var.namespace}-${var.application}"
   create_storage_account                    = var.create_storage_account
   create_service_plan                       = var.create_service_plan
   namespace                                 = var.namespace
