@@ -25,6 +25,7 @@ module "functionapp" {
   create_storage_account                    = var.create_storage_account
   create_service_plan                       = var.create_service_plan
   namespace                                 = var.namespace
+  costcode                                  = var.costcode
   attribute                                 = var.attribute
   owner                                     = var.owner
   environment                               = var.environment
