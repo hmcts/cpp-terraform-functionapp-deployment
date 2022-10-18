@@ -31,5 +31,6 @@ module "functionapp" {
   environment                               = var.environment
   application                               = var.application
   application_group                         = var.application_group
+  application_insights_name                 = var.application_insights_name
   type                                      = var.type
 }

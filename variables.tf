@@ -219,8 +219,8 @@ variable "application_insights_enabled" {
   default     = true
 }
 
-variable "application_insights_id" {
-  description = "ID of the existing Application Insights to use instead of deploying a new one."
+variable "application_insights_name" {
+  description = "name of the existing Application Insights to use instead of deploying a new one."
   type        = string
   default     = null
 }
