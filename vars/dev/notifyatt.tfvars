@@ -24,7 +24,6 @@ site_config = {
 application_insights_enabled = true
 
 namespace         = "cpp"
-costcode          = "0101"
 attribute         = ""
 owner             = "EI"
 environment       = "dev"
