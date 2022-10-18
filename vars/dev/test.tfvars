@@ -4,6 +4,7 @@ storage_account_identity_type = "SystemAssigned"
 asp_os_type = "Windows"
 asp_sku     = "P1v2"
 
+create_resource_group  = false
 create_storage_account = false
 create_service_plan    = false
 service_plan_name      = "as-dev-cpp-notifyatt"
