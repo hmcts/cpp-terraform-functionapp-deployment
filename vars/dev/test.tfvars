@@ -26,6 +26,7 @@ site_config = {
 }
 
 application_insights_enabled = true
+application_insights_id      = "ai-dev-cpp-notifyatt"
 
 namespace         = "cpp"
 costcode          = "0101"
@@ -36,7 +37,7 @@ application       = "notifyatttest"
 application_group = "notifyatt"
 type              = "functionapp"
 
-logicapp_enabled = true
+logicapp_enabled = false
 
 logicapp_template = <<EOT
 {
