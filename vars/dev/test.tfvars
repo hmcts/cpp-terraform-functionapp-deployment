@@ -26,7 +26,7 @@ site_config = {
 }
 
 application_insights_enabled = true
-application_insights_id      = "ai-dev-cpp-notifyatt"
+application_insights_name    = "ai-dev-cpp-notifyatt"
 
 namespace         = "cpp"
 costcode          = "0101"
