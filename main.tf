@@ -30,5 +30,6 @@ module "functionapp" {
   owner                                     = var.owner
   environment                               = var.environment
   application                               = var.application
+  application_group                         = var.application_group
   type                                      = var.type
 }

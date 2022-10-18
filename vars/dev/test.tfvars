@@ -4,6 +4,10 @@ storage_account_identity_type = "SystemAssigned"
 asp_os_type = "Windows"
 asp_sku     = "P1v2"
 
+create_storage_account =  false
+create_service_plan = false
+service_plan_name =
+
 functionapp_package = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/notification/notify/notificationnotify-azure-functions/8.0.2/notificationnotify-azure-functions-8.0.2.zip"
 function_app_application_settings = {
   FUNCTIONS_EXTENSION_VERSION        = "~2"
@@ -28,7 +32,7 @@ costcode          = "0101"
 attribute         = ""
 owner             = "EI"
 environment       = "dev"
-application       = "notifyatt"
+application       = "notifyatttest"
 application_group = "notifyatt"
 type              = "functionapp"
 
