@@ -24,10 +24,11 @@ site_config = {
 application_insights_enabled = true
 
 namespace         = "cpp"
+costcode          = "0101"
 attribute         = ""
 owner             = "EI"
 environment       = "dev"
-application       = "notifyatttest"
+application       = "notifyatt"
 application_group = "notifyatt"
 type              = "functionapp"
 
