@@ -33,4 +33,5 @@ module "functionapp" {
   application_group                         = var.application_group
   application_insights_name                 = var.application_insights_name
   type                                      = var.type
+  create_resource_group                     = var.create_resource_group
 }
