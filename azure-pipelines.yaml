@@ -39,7 +39,7 @@ resources:
   - repository: cppAzureDevOpsTemplates
     type: github
     name: hmcts/cpp-azure-devops-templates
-    ref: 'dev_ei_862'
+    ref: 'main'
     endpoint: 'cpp-apps'
 
 stages:
