@@ -23,13 +23,14 @@ site_config = {
 
 application_insights_enabled = true
 
-namespace   = "cpp"
-costcode    = "0101"
-attribute   = ""
-owner       = "EI"
-environment = "dev"
-application = "notifyatt"
-type        = "functionapp"
+namespace         = "cpp"
+costcode          = "0101"
+attribute         = ""
+owner             = "EI"
+environment       = "dev"
+application       = "notifyatt"
+application_group = "notifyatt"
+type              = "functionapp"
 
 logicapp_enabled = true
 

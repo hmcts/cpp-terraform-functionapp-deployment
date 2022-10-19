@@ -7,6 +7,11 @@ variable "region" {
   default = "uksouth"
 }
 
+variable "create_resource_group" {
+  description = " If true a new resource group is created"
+  type        = bool
+  default     = true
+}
 ###################
 # STORAGE ACCOUNT #
 ###################
@@ -17,10 +22,22 @@ variable "storage_account_name" {
   default     = null
 }
 
-variable "storage_account_id" {
-  description = "Access key the storage account to use. If null a new storage account is created"
+variable "service_plan_name" {
+  description = "Service Plan Name"
   type        = string
   default     = null
+}
+
+variable "create_storage_account" {
+  description = " If true a new storage account is created"
+  type        = bool
+  default     = true
+}
+
+variable "create_service_plan" {
+  description = " If true a new service plan is created"
+  type        = bool
+  default     = true
 }
 
 variable "storage_account_tier" {
@@ -207,8 +224,8 @@ variable "application_insights_enabled" {
   default     = true
 }
 
-variable "application_insights_id" {
-  description = "ID of the existing Application Insights to use instead of deploying a new one."
+variable "application_insights_name" {
+  description = "name of the existing Application Insights to use instead of deploying a new one."
   type        = string
   default     = null
 }
@@ -294,6 +311,12 @@ variable "version_number" {
 }
 
 variable "application" {
+  type        = string
+  description = "Application to which the s3 bucket relates"
+  default     = ""
+}
+
+variable "application_group" {
   type        = string
   description = "Application to which the s3 bucket relates"
   default     = ""

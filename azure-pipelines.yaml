@@ -39,6 +39,7 @@ resources:
   - repository: cppAzureDevOpsTemplates
     type: github
     name: hmcts/cpp-azure-devops-templates
+    ref: 'main'
     endpoint: 'cpp-apps'
 
 stages:
@@ -63,4 +64,5 @@ stages:
         platform: ${{ parameters.platform }}
         environment: ${{ parameters.environment }}
         tfvars: ${{ parameters.functionapp }}
+        serviceName: ${{ parameters.functionapp }}
         agentPool: ${{ parameters.agentPool }}
