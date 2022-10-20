@@ -11,9 +11,9 @@ function_app_application_settings = {
   SCM_DO_BUILD_DURING_DEPLOYMENT                = false
   FUNCTIONS_WORKER_RUNTIME                      = "java"
   WEBSITE_HTTPLOGGING_RETENTION_DAYS            = 3
-  material.alfrescoAzureStorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=sadevccplargefilestest;AccountKey=test;EndpointSuffix=core.windows.net"
-  material.alfrescoAzureStorageContainerName    = "largefiles-blob-container"
-  material.largefileExpiryInMinutes             = 30
+  "material.alfrescoAzureStorageConnectionString" = "DefaultEndpointsProtocol=https;AccountName=sadevccplargefilestest;AccountKey=test;EndpointSuffix=core.windows.net"
+  "material.alfrescoAzureStorageContainerName"    = "largefiles-blob-container"
+  "material.largefileExpiryInMinutes"             = 30
 }
 
 site_config = {
