@@ -5,6 +5,15 @@ pr:
 
 parameters:
 - name: environment
+  displayName: Environment and Terraform Workspace
+  type: string
+  default: dev
+  values:
+  - dev
+  - live
+  - nft
+  - nonlive
+  - sit
 - name: functionapp
   displayName: The name of the application
   default: notifyatt
