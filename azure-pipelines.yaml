@@ -10,11 +10,10 @@ parameters:
   default: dev
   values:
   - dev
-  - sit
+  - live
   - nft
-  - prp
-  - prx
-  - prd
+  - nonlive
+  - sit
 - name: functionapp
   displayName: The name of the application
   default: notifyatt
