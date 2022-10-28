@@ -33,8 +33,8 @@ application_group = "casefilter"
 type              = "functionapp"
 
 
-eventgrid_topic_enabled = true
-eventgrid_system_topic_enabled = true
-eventgrid_system_topic_type = "Microsoft.Storage.StorageAccounts"
-eventgrid_topic_subscriptions = {}
+eventgrid_topic_enabled              = true
+eventgrid_system_topic_enabled       = true
+eventgrid_system_topic_type          = "Microsoft.Storage.StorageAccounts"
+eventgrid_topic_subscriptions        = {}
 eventgrid_system_topic_subscriptions = {}
