@@ -1,5 +1,8 @@
 name: CPP Azure FunctionApp Deployment
-trigger: none
+
+trigger:
+- dev/EI-891
+
 pr:
 - main
 
