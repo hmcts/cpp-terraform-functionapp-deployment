@@ -4,7 +4,7 @@ storage_account_identity_type = "SystemAssigned"
 asp_os_type = "Windows"
 asp_sku     = "P1v2"
 
-functionapp_package = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/notification/notify/notificationnotify-azure-functions/8.0.2/notificationnotify-azure-functions-8.0.2.zip"
+functionapp_package = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/staging/prosecutors/spi/stagingprosecutors-azure-functions/8.0.3/stagingprosecutors-azure-functions-8.0.3.zip"
 function_app_application_settings = {
   FUNCTIONS_EXTENSION_VERSION        = "~2"
   ENABLE_ORYX_BUILD                  = false
@@ -28,10 +28,11 @@ costcode          = "0101"
 attribute         = ""
 owner             = "EI"
 environment       = "dev"
-application       = "casefilter"
-application_group = "casefilter"
+//application       = "casefilter"
+//application_group = "casefilter"
+application       = "prosecutors"
+application_group = "staging"
 type              = "functionapp"
-
 
 eventgrid_topic_enabled              = true
 eventgrid_system_topic_enabled       = true
