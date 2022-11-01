@@ -28,8 +28,8 @@ costcode          = "0101"
 attribute         = ""
 owner             = "EI"
 environment       = "dev"
-application       = "prosecutors"
-application_group = "staging"
+application       = "casefilter"
+application_group = "casefilter"
 type              = "functionapp"
 
 eventgrid_topic_enabled              = true
