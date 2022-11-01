@@ -1,5 +1,5 @@
 module "functionapp" {
-  source                                    = "github.com/hmcts/cpp-module-terraform-azurerm-functionapp.git?ref=dev/EI-891"
+  source                                    = "github.com/hmcts/cpp-module-terraform-azurerm-functionapp.git?ref=dev-EI-891"
   storage_account_name                      = var.storage_account_name
   region                                    = var.region
   storage_account_tier                      = var.storage_account_tier
