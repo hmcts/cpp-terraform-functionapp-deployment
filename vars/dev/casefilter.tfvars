@@ -1,4 +1,4 @@
-storage_account_name          = "sadevccp0101casefilfa2"
+storage_account_name          = "sadevcpp0101casefilfa2"
 storage_account_identity_type = "SystemAssigned"
 
 asp_os_type = "Windows"
