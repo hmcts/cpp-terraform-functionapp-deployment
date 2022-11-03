@@ -1,5 +1,5 @@
 module "functionapp" {
-  source                                    = "github.com/hmcts/cpp-module-terraform-azurerm-functionapp.git?ref=main"
+  source                                    = "github.com/hmcts/cpp-module-terraform-azurerm-functionapp.git?ref=dev-EI-891"
   storage_account_name                      = var.storage_account_name
   region                                    = var.region
   storage_account_tier                      = var.storage_account_tier
@@ -34,4 +34,9 @@ module "functionapp" {
   application_insights_name                 = var.application_insights_name
   type                                      = var.type
   create_resource_group                     = var.create_resource_group
+  eventgrid_topic_enabled                   = var.eventgrid_topic_enabled
+  eventgrid_system_topic_enabled            = var.eventgrid_system_topic_enabled
+  eventgrid_system_topic_type               = var.eventgrid_system_topic_type
+  eventgrid_topic_subscriptions             = var.eventgrid_topic_subscriptions
+  eventgrid_system_topic_subscriptions      = var.eventgrid_system_topic_subscriptions
 }

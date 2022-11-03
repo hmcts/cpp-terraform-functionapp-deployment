@@ -1,5 +1,8 @@
 name: CPP Azure FunctionApp Deployment
-trigger: none
+
+trigger:
+- dev/EI-891
+
 pr:
 - main
 
@@ -16,7 +19,7 @@ parameters:
   - sit
 - name: functionapp
   displayName: The name of the application
-  default: notifyatt
+  default: casefilter
 - name: tfversion
   default: 1.3.1
 - name: agentPool
