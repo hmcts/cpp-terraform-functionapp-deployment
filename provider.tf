@@ -7,6 +7,11 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.19.1"
     }
+
+    vault = {
+      source  = "hashicorp/vault"
+      version = "=2.21.0"
+    }
   }
 }
 

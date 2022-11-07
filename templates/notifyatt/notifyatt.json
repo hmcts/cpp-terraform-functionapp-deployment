@@ -1,0 +1,243 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "${name}",
+            "location": "uksouth",
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "manual": {
+                            "type": "Request",
+                            "kind": "Http",
+                            "inputs": {
+                                "schema": {
+                                    "$schema": "http://json-schema.org/draft-04/schema#",
+                                    "additionalProperties": false,
+                                    "id": "http://justice.gov.uk/json/schemas/domains/notificationnotify/paas/logic-app-request-payload.email.json",
+                                    "properties": {
+                                        "attachment": {
+                                            "properties": {
+                                                "content": {
+                                                    "contentEncoding": "base64",
+                                                    "type": "string"
+                                                },
+                                                "filename": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "emailAddress": {
+                                            "type": "string"
+                                        },
+                                        "personalisation": {
+                                            "additionalProperties": true,
+                                            "properties": {},
+                                            "type": "object"
+                                        },
+                                        "reference": {
+                                            "type": "string"
+                                        },
+                                        "replyToAddressId": {
+                                            "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                                            "type": "string"
+                                        },
+                                        "templateId": {
+                                            "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "templateId",
+                                        "emailAddress"
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "actions": {
+                        "Condition": {
+                            "actions": {
+                                "Send_an_email_(V2)_2": {
+                                    "runAfter": {},
+                                    "type": "ApiConnection",
+                                    "inputs": {
+                                        "body": {
+                                            "Body": "<p>@{body('Parse_JSON')?['htmlBody']}</p>",
+                                            "Subject": "@body('Parse_JSON')?['subject']",
+                                            "To": "@triggerBody()['emailAddress']"
+                                        },
+                                        "host": {
+                                            "connection": {
+                                                "name": "@parameters('$connections')['office365']['connectionId']"
+                                            }
+                                        },
+                                        "method": "post",
+                                        "path": "/v2/Mail"
+                                    }
+                                }
+                            },
+                            "runAfter": {
+                                "Parse_JSON": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "else": {
+                                "actions": {
+                                    "Send_an_email_(V2)_3": {
+                                        "runAfter": {},
+                                        "type": "ApiConnection",
+                                        "inputs": {
+                                            "body": {
+                                                "Body": "<p>@{body('Parse_JSON')?['htmlBody']}</p>",
+                                                "Subject": "@body('Parse_JSON')?['subject']",
+                                                "To": "@triggerBody()['emailAddress']"
+                                            },
+                                            "host": {
+                                                "connection": {
+                                                    "name": "@parameters('$connections')['office365']['connectionId']"
+                                                }
+                                            },
+                                            "method": "post",
+                                            "path": "/v2/Mail"
+                                        }
+                                    }
+                                }
+                            },
+                            "expression": {
+                                "and": [
+                                    {
+                                        "equals": [
+                                            "",
+                                            ""
+                                        ]
+                                    }
+                                ]
+                            },
+                            "type": "If"
+                        },
+                        "Generate-Notification-Email": {
+                            "runAfter": {
+                                "Send_Accepted_Response": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Function",
+                            "inputs": {
+                                "body": {
+                                    "personalisation": "@triggerBody()?['personalisation']",
+                                    "reference": "@triggerBody()?['reference']"
+                                },
+                                "function": {
+                                    "id": "/subscriptions/${subscription_id}/resourceGroups/${resource_group_name}/providers/Microsoft.Web/sites/$(function_app_name)/functions/generate-notification-email"
+                                },
+                                "queries": {
+                                    "templateId": "@{triggerBody()['templateId']}"
+                                }
+                            }
+                        },
+                        "Parse_JSON": {
+                            "runAfter": {
+                                "Generate-Notification-Email": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ParseJson",
+                            "inputs": {
+                                "content": "@body('Generate-Notification-Email')",
+                                "schema": {
+                                    "$schema": "http://json-schema.org/draft-04/schema#",
+                                    "additionalProperties": false,
+                                    "id": "http://justice.gov.uk/json/schemas/domains/notificationnotify/paas/generated-email.json",
+                                    "properties": {
+                                        "htmlBody": {
+                                            "type": "string"
+                                        },
+                                        "reference": {
+                                            "type": "string"
+                                        },
+                                        "subject": {
+                                            "type": "string"
+                                        },
+                                        "templateId": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "Send_Accepted_Response": {
+                            "runAfter": {},
+                            "type": "Response",
+                            "kind": "Http",
+                            "inputs": {
+                                "body": {
+                                    "id": "@{triggerBody()?['reference']}"
+                                },
+                                "headers": {
+                                    "Content-Type": "application/json"
+                                },
+                                "statusCode": 201
+                            }
+                        },
+                        "Send_an_email_(V2)": {
+                            "runAfter": {
+                                "Condition": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "body": {
+                                    "Attachments": [
+                                        {
+                                            "ContentBytes": "@{triggerBody()?['attachment']['content']}",
+                                            "Name": "@{triggerBody()['attachment']['filename']}"
+                                        }
+                                    ],
+                                    "Body": "<p>@{body('Parse_JSON')?['htmlBody']}</p>",
+                                    "Subject": "@body('Parse_JSON')?['subject']",
+                                    "To": "@triggerBody()['emailAddress']"
+                                },
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['office365']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "path": "/v2/Mail"
+                            }
+                        }
+                    }
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "office365": {
+                                "connectionId": "/subscriptions/${subscription_id}/resourceGroups/${resource_group_name}/providers/Microsoft.Web/connections/office365",
+                                "connectionName": "office365",
+                                "id": "/subscriptions/${subscription_id}/providers/Microsoft.Web/locations/uksouth/managedApis/office365"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

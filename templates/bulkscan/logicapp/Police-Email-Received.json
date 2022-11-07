@@ -1,0 +1,196 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workflows_Police_Email_Received_name": {
+            "defaultValue": "${name}",
+            "type": "String"
+        },
+        "connections_office365_externalid": {
+            "defaultValue": "/subscriptions/${subscription_id}/resourceGroups/${resource_group_name}/providers/Microsoft.Web/connections/office365",
+            "type": "String"
+        },
+        "connections_sftpwithssh_externalid": {
+            "defaultValue": "/subscriptions/${subscription_id}/resourceGroups/${resource_group_name}/providers/Microsoft.Web/connections/sftpwithssh",
+            "type": "String"
+        },
+        "SharedMailbox": {
+            "defaultValue": "${shared_email_box}",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('workflows_Police_Email_Received_name')]",
+            "location": "uksouth",
+            "properties": {
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "When_a_new_email_arrives_in_a_shared_mailbox_(V2)": {
+                            "recurrence": {
+                                "frequency": "Minute",
+                                "interval": 1
+                            },
+                            "splitOn": "@triggerBody()?['value']",
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['office365']['connectionId']"
+                                    }
+                                },
+                                "method": "get",
+                                "path": "/v2/SharedMailbox/Mail/OnNewEmail",
+                                "queries": {
+                                    "folderId": "Inbox",
+                                    "hasAttachments": true,
+                                    "importance": "Any",
+                                    "includeAttachments": true,
+                                    "mailboxAddress": "@parameters('SharedMailbox')"
+                                },
+                                "retryPolicy": {
+                                    "count": 10,
+                                    "interval": "PT20S",
+                                    "maximumInterval": "PT60S",
+                                    "minimumInterval": "PT10S",
+                                    "type": "exponential"
+                                }
+                            }
+                        }
+                    },
+                    "actions": {
+                        "Create_file": {
+                            "runAfter": {},
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "body": "@triggerBody()",
+                                "headers": {
+                                    "ReadFileMetadataFromServer": true
+                                },
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['sftpwithssh']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "path": "/datasets/default/files",
+                                "queries": {
+                                    "folderPath": "/home/AzureUser",
+                                    "name": "@{triggerBody()?['id']}.temp",
+                                    "queryParametersSingleEncoded": true
+                                }
+                            },
+                            "runtimeConfiguration": {
+                                "contentTransfer": {
+                                    "transferMode": "Chunked"
+                                },
+                                "secureData": {
+                                    "properties": [
+                                        "inputs",
+                                        "outputs"
+                                    ]
+                                }
+                            }
+                        },
+                        "Forward_Failed_Email_to_AMS": {
+                            "runAfter": {
+                                "Create_file": [
+                                    "Failed",
+                                    "Skipped",
+                                    "TimedOut"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "body": {
+                                    "Comment": "Hello, Bulk Scan email logic app here. An email received from @{triggerBody()?['from']}\non @{triggerBody()?['receivedDateTime']} could not be sent via SFTP to the bulk scan processor. The original email is below and original attachment(s) are attached.\n\nThe message id of the message is @{triggerBody()?['id']}",
+                                    "ToRecipients": "@parameters('SharedMailbox')"
+                                },
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['office365']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "path": "/codeless/v1.0/me/messages/@{encodeURIComponent(triggerBody()?['id'])}/forward"
+                            }
+                        },
+                        "Forward_Rename_Failed_Email_to_AMS": {
+                            "runAfter": {
+                                "Rename_File_2": [
+                                    "Failed",
+                                    "Skipped",
+                                    "TimedOut"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "body": {
+                                    "Comment": "Hello, Bulk Scan email logic app here. An email received from  @{triggerBody()?['from']}\non @{triggerBody()?['receivedDateTime']} was sent to the SFTP server but the rename operation subsequently failed. The original email is below and original attachment(s) are attached.\n\nThe message id of the message is @{triggerBody()?['id']}",
+                                    "ToRecipients": "@parameters('SharedMailbox')"
+                                },
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['office365']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "path": "/codeless/v1.0/me/messages/@{encodeURIComponent(triggerBody()?['id'])}/forward"
+                            }
+                        },
+                        "Rename_File_2": {
+                            "runAfter": {
+                                "Create_file": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "headers": {
+                                    "ReadFileMetadataFromServer": true
+                                },
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['sftpwithssh']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "path": "/datasets/default/files/@{encodeURIComponent(encodeURIComponent('/home/AzureUser/',triggerBody()?['id'],'.temp'))}/rename",
+                                "queries": {
+                                    "newName": "@{triggerBody()?['id']}.json"
+                                }
+                            }
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "office365": {
+                                "connectionId": "[parameters('connections_office365_externalid')]",
+                                "connectionName": "office365",
+                                "id": "/subscriptions/${subscription_id}/providers/Microsoft.Web/locations/uksouth/managedApis/office365"
+                            },
+                            "sftpwithssh": {
+                                "connectionId": "[parameters('connections_sftpwithssh_externalid')]",
+                                "connectionName": "sftpwithssh",
+                                "id": "/subscriptions/${subscription_id}/providers/Microsoft.Web/locations/uksouth/managedApis/sftpwithssh"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
