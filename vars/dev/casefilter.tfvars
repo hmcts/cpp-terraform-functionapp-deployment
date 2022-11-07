@@ -1,5 +1,5 @@
 storage_accounts = {
-  sadevccp0101notifyattfa2 = {
+  sadevcpp0101casefilfa2 = {
     identity_type             = "SystemAssigned"
     identity_ids              = null
     replication_type          = "LRS"
@@ -17,7 +17,7 @@ application_insights = {
 }
 
 functionapps = {
-  fa-dev-cpp-notifyatt = {
+  fa-dev-cpp-casefilter = {
     asp_sku                      = "P1v2"
     asp_os_type                  = "Windows"
     asp_instance_size            = 1
@@ -35,26 +35,32 @@ functionapps = {
     application_settings_sensitive_hashicorp_vault_lookup = {
       SMTP_SETTINGS = "secret/dev/devccm01/o365_email_password"
     }
-    functionapp_package = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/notification/notify/notificationnotify-azure-functions/8.0.2/notificationnotify-azure-functions-8.0.2.zip"
+    functionapp_package = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/staging/prosecutors/spi/stagingprosecutors-azure-functions/8.0.3/stagingprosecutors-azure-functions-8.0.3.zip"
     site_config = {
       use_32_bit_worker_process = true
     }
-    application          = "notifyatt"
+    application          = "casefilter"
     service_plan_name    = null
     create_service_plan  = true
-    storage_account_name = "sadevccp0101notifyattfa2"
+    storage_account_name = "sadevcpp0101casefilfa2"
   }
 }
 
-logicapps = {
-  notifyatt = {
-    function_app_name = "fa-dev-cpp-notifyatt"
-  }
-}
-
-smtp_api_connection = {
-  create = true
-  name   = "office365"
+eventgrid_topics = {
+  eg-dev-ccp-notifycourtstore = [
+    {
+      subscription_name = "EGS-DEV-CCP-NOTIFYCOURTSTORE-CASEEJECT"
+      functionapp_name  = "fa-dev-cpp-casefilter"
+      function_name     = "notifyCourtStoreOnCaseEject"
+      event_types       = ["CaseEjected"]
+    },
+    {
+      subscription_name = "EGS-SIT-CCP0101-NOTIFYCOURTSTORE-CASEONCPP"
+      functionapp_name  = "fa-dev-cpp-casefilter"
+      function_name     = "notifyCourtStoreOnCaseOnCpp"
+      event_types       = ["CaseOnCpp"]
+    }
+  ]
 }
 
 namespace         = "cpp"
@@ -62,6 +68,6 @@ costcode          = "0101"
 attribute         = ""
 owner             = "EI"
 environment       = "dev"
-application       = "notifyatt"
-application_group = "notifyatt"
+application       = "casefilter"
+application_group = "casefilter"
 type              = "functionapp"

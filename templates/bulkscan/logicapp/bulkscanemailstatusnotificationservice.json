@@ -1,0 +1,318 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workflows_logic_web_bulkscanemailstatusnotificationservice_name": {
+            "defaultValue": "${name}",
+            "type": "String"
+        },
+        "connections_office365_externalid": {
+            "defaultValue": "/subscriptions/${subscription_id}/resourceGroups/${resource_group_name}/providers/Microsoft.Web/connections/office365",
+            "type": "String"
+        },
+        "shared_email_box": {
+            "defaultValue": "${shared_email_box}",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('workflows_logic_web_bulkscanemailstatusnotificationservice_name')]",
+            "location": "uksouth",
+            "properties": {
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "type": "Object"
+                        },
+                        "shared email box": {
+                            "defaultValue": "@parameters(shared_email_box')",
+                            "type": "String"
+                        }
+                    },
+                    "triggers": {
+                        "request": {
+                            "type": "Request",
+                            "kind": "Http",
+                            "inputs": {
+                                "schema": {
+                                    "$id": "${uri_reference}",
+                                    "$schema": "http://json-schema.org/draft-07/schema",
+                                    "additionalProperties": true,
+                                    "default": {},
+                                    "description": "The root schema comprises the entire JSON document.",
+                                    "examples": [
+                                        {
+                                            "fileName": "aFileName.pdf",
+                                            "messageId": "5cd82e90-8ff1-4f4a-9568-eea7a587f13e",
+                                            "messageStatus": "ATTACHMENT_CORRUPT"
+                                        }
+                                    ],
+                                    "properties": {
+                                        "fileName": {
+                                            "$id": "#/properties/fileName",
+                                            "default": "",
+                                            "description": "Optional field containing the name of the attachment that resulted in a processing error.",
+                                            "examples": [
+                                                "aFileName.pdf"
+                                            ],
+                                            "title": "The fileName schema",
+                                            "type": "string"
+                                        },
+                                        "messageId": {
+                                            "$id": "#/properties/messageId",
+                                            "default": "",
+                                            "description": "The messageId of the email.",
+                                            "examples": [
+                                                "5cd82e90-8ff1-4f4a-9568-eea7a587f13e"
+                                            ],
+                                            "title": "The messageId schema",
+                                            "type": "string"
+                                        },
+                                        "messageStatus": {
+                                            "$id": "#/properties/messageStatus",
+                                            "default": "",
+                                            "description": "A status enum value describing the processing state of the email.",
+                                            "enum": [
+                                                "ALL_ATTACHMENTS_PROCESSED",
+                                                "ATTACHMENT_CORRUPT"
+                                            ],
+                                            "examples": [
+                                                "ATTACHMENT_CORRUPT"
+                                            ],
+                                            "title": "The messageStatus schema",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "messageId",
+                                        "messageStatus"
+                                    ],
+                                    "title": "The root schema",
+                                    "type": "object"
+                                }
+                            },
+                            "description": "Update Email Status",
+                            "operationOptions": "EnableSchemaValidation"
+                        }
+                    },
+                    "actions": {
+                        "Switch": {
+                            "runAfter": {},
+                            "cases": {
+                                "Attachments_processed_actions": {
+                                    "case": "ALL_ATTACHMENTS_PROCESSED",
+                                    "actions": {
+                                        "200_Success_Response": {
+                                            "runAfter": {
+                                                "Delete_email_(V2)": [
+                                                    "Succeeded"
+                                                ]
+                                            },
+                                            "type": "Response",
+                                            "kind": "Http",
+                                            "inputs": {
+                                                "body": "Successfully processed",
+                                                "statusCode": 200
+                                            }
+                                        },
+                                        "500_Error_Response": {
+                                            "runAfter": {
+                                                "Delete_email_(V2)": [
+                                                    "Failed"
+                                                ]
+                                            },
+                                            "type": "Response",
+                                            "kind": "Http",
+                                            "inputs": {
+                                                "body": {
+                                                    "error": "UNABLE_TO_PROCESS_MESSAGEID",
+                                                    "messageId": "@triggerBody()?['messageId']"
+                                                },
+                                                "statusCode": 500
+                                            },
+                                            "runtimeConfiguration": {
+                                                "secureData": {
+                                                    "properties": [
+                                                        "inputs"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        "Delete_email_(V2)": {
+                                            "runAfter": {},
+                                            "type": "ApiConnection",
+                                            "inputs": {
+                                                "host": {
+                                                    "connection": {
+                                                        "name": "@parameters('$connections')['office365']['connectionId']"
+                                                    }
+                                                },
+                                                "method": "delete",
+                                                "path": "/codeless/v1.0/me/messages/@{encodeURIComponent(triggerBody()?['messageId'])}"
+                                            }
+                                        }
+                                    }
+                                },
+                                "Corrupt_Attachment_Actions": {
+                                    "case": "ATTACHMENT_CORRUPT",
+                                    "actions": {
+                                        "Get_email_(V2)": {
+                                            "runAfter": {},
+                                            "type": "ApiConnection",
+                                            "inputs": {
+                                                "host": {
+                                                    "connection": {
+                                                        "name": "@parameters('$connections')['office365']['connectionId']"
+                                                    }
+                                                },
+                                                "method": "get",
+                                                "path": "/v2/Mail/@{encodeURIComponent(triggerBody()?['messageId'])}",
+                                                "queries": {
+                                                    "includeAttachments": true
+                                                }
+                                            },
+                                            "runtimeConfiguration": {
+                                                "secureData": {
+                                                    "properties": [
+                                                        "inputs",
+                                                        "outputs"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        "Get_email_400_Error_Response": {
+                                            "runAfter": {
+                                                "Get_email_(V2)": [
+                                                    "Failed"
+                                                ]
+                                            },
+                                            "type": "Response",
+                                            "kind": "Http",
+                                            "inputs": {
+                                                "body": {
+                                                    "error": "Unable to retrieve original message. The originator has NOT been notified of the status.",
+                                                    "messageId": "@triggerBody()?['messageId']"
+                                                },
+                                                "statusCode": 400
+                                            },
+                                            "runtimeConfiguration": {
+                                                "secureData": {
+                                                    "properties": [
+                                                        "inputs"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        "Send_an_email_from_a_shared_mailbox_(V2)": {
+                                            "runAfter": {
+                                                "Get_email_(V2)": [
+                                                    "Succeeded"
+                                                ]
+                                            },
+                                            "type": "ApiConnection",
+                                            "inputs": {
+                                                "body": {
+                                                    "Body": "<p>There was a problem processing the above email received on @{body('Get_email_(V2)')?['receivedDateTime']}. The email contained the following message:<br>\n<br>\n@{if(not(equals(triggerBody()?['fileName'], null)), 'Attachment name', '')}<br>\n@{if(not(equals(triggerBody()?['fileName'], null)), triggerBody()?['fileName'], '')}<br>\n<br>\n@{body('Get_email_(V2)')?['body']}</p>",
+                                                    "MailboxAddress": "@parameters('shared email box')",
+                                                    "Subject": "Re:@{body('Get_email_(V2)')?['subject']}",
+                                                    "To": "@body('Get_email_(V2)')?['from']"
+                                                },
+                                                "host": {
+                                                    "connection": {
+                                                        "name": "@parameters('$connections')['office365']['connectionId']"
+                                                    }
+                                                },
+                                                "method": "post",
+                                                "path": "/v2/SharedMailbox/Mail"
+                                            },
+                                            "runtimeConfiguration": {
+                                                "secureData": {
+                                                    "properties": [
+                                                        "inputs",
+                                                        "outputs"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        "Send_email_200_Success_Response": {
+                                            "runAfter": {
+                                                "Send_an_email_from_a_shared_mailbox_(V2)": [
+                                                    "Succeeded"
+                                                ]
+                                            },
+                                            "type": "Response",
+                                            "kind": "Http",
+                                            "inputs": {
+                                                "body": "Successfully sent email from shared mailbox",
+                                                "statusCode": 200
+                                            }
+                                        },
+                                        "Send_email_400_Error_Response": {
+                                            "runAfter": {
+                                                "Send_an_email_from_a_shared_mailbox_(V2)": [
+                                                    "Failed"
+                                                ]
+                                            },
+                                            "type": "Response",
+                                            "kind": "Http",
+                                            "inputs": {
+                                                "body": {
+                                                    "error": "UNABLE_TO_PROCESS_MESSAGEID",
+                                                    "messageId": "@triggerBody()?['messageId']"
+                                                },
+                                                "statusCode": 400
+                                            },
+                                            "runtimeConfiguration": {
+                                                "secureData": {
+                                                    "properties": [
+                                                        "inputs"
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "default": {
+                                "actions": {
+                                    "Response": {
+                                        "runAfter": {},
+                                        "type": "Response",
+                                        "kind": "Http",
+                                        "inputs": {
+                                            "body": {
+                                                "error": "UNKNOWN_STATUS_CODE",
+                                                "messageId": "@triggerBody()?['messageId']"
+                                            },
+                                            "statusCode": 400
+                                        }
+                                    }
+                                }
+                            },
+                            "expression": "@triggerBody()['messageStatus']",
+                            "type": "Switch"
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "office365": {
+                                "connectionId": "[parameters('connections_office365_externalid')]",
+                                "connectionName": "office365",
+                                "id": "/subscriptions/${subscription_id}/providers/Microsoft.Web/locations/uksouth/managedApis/office365"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

@@ -1,290 +1,120 @@
-############
-# DEFAULTS #
-############
-
-variable "region" {
+variable "location" {
   type    = string
   default = "uksouth"
 }
 
-variable "create_resource_group" {
-  description = " If true a new resource group is created"
-  type        = bool
-  default     = true
-}
-###################
-# STORAGE ACCOUNT #
-###################
-
-variable "storage_account_name" {
-  description = "Storage Account Name"
-  type        = string
-  default     = null
+variable "key_vault" {
+  type = object({
+    soft_delete_retention_days = number
+    purge_protection_enabled   = bool
+    sku_name                   = string
+  })
+  default = {
+    soft_delete_retention_days = 7
+    purge_protection_enabled   = false
+    sku_name                   = "standard"
+  }
 }
 
-variable "service_plan_name" {
-  description = "Service Plan Name"
-  type        = string
-  default     = null
+variable "storage_accounts" {
+  type = map(object({
+    identity_type             = string
+    identity_ids              = list(string)
+    replication_type          = string
+    account_tier              = string
+    account_kind              = string
+    min_tls_version           = string
+    enable_https_traffic_only = bool
+  }))
 }
 
-variable "create_storage_account" {
-  description = " If true a new storage account is created"
-  type        = bool
-  default     = true
+variable "functionapps" {
+  type = map(object({
+    asp_sku                                               = string
+    asp_os_type                                           = string
+    asp_instance_size                                     = number
+    asp_per_site_scaling_enabled                          = bool
+    asp_zone_balancing_enabled                            = bool
+    create_service_plan                                   = bool
+    application_settings                                  = map(string)
+    application_settings_sensitive_keyvault_lookup        = map(string)
+    application_settings_sensitive_hashicorp_vault_lookup = map(string)
+    functionapp_package                                   = string
+    site_config                                           = map(string)
+    application                                           = string
+    service_plan_name                                     = string
+    create_service_plan                                   = bool
+    storage_account_name                                  = string
+  }))
 }
 
-variable "create_service_plan" {
-  description = " If true a new service plan is created"
-  type        = bool
-  default     = true
+variable "application_insights" {
+  type = object({
+    log_analytics_workspace_id = string
+    application_type           = string
+    retention_in_days          = number
+  })
+  default = {
+    log_analytics_workspace_id = null
+    application_type           = "web"
+    retention_in_days          = 90
+  }
 }
 
-variable "storage_account_tier" {
-  description = "Storage Account Tier"
-  type        = string
-  default     = "Standard"
+variable "smtp_api_connection" {
+  type = object({
+    create = bool
+    name   = string
+  })
+  default = {
+    create = false
+    name   = "office365"
+  }
 }
 
-variable "storage_account_kind" {
-  description = "Storage Account Kind"
-  type        = string
-  default     = "StorageV2"
+variable "ssh_api_connection" {
+  type = object({
+    create              = bool
+    name                = string
+    userName            = string
+    hostName            = string
+    acceptAnySshHostKey = bool
+  })
+  default = {
+    create              = false
+    name                = null
+    userName            = null
+    hostName            = null
+    acceptAnySshHostKey = false
+  }
 }
 
-variable "storage_account_account_replication_type" {
-  description = "Storage Account Replication Type"
-  type        = string
-  default     = "LRS"
+variable "logicapps" {
+  type    = map(map(string))
+  default = {}
 }
 
-variable "storage_account_min_tls_version" {
-  description = "Storage Account minimal TLS version"
-  type        = string
-  default     = "TLS1_2"
+variable "eventgrid_topics" {
+  type = map(list(object({
+    subscription_name = string
+    functionapp_name  = string
+    function_name     = string
+    event_types       = list(string)
+  })))
+  default = {}
 }
 
-variable "storage_account_enable_advanced_threat_protection" {
-  description = "Boolean flag which controls if advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information."
-  type        = bool
-  default     = false
+variable "eventgrid_system_topics" {
+  type = map(object({
+    storage_account_name = string
+    subscriptions = list(object({
+      subscription_name = string
+      functionapp_name  = string
+      function_name     = string
+    }))
+  }))
+  default = {}
 }
-
-variable "storage_account_enable_https_traffic_only" {
-  description = "Boolean flag which controls if https traffic only is enabled."
-  type        = bool
-  default     = true
-}
-
-variable "storage_account_identity_type" {
-  description = "Specifies the type of Managed Service Identity that should be configured on this Storage Account"
-  type        = string
-  default     = null
-}
-
-variable "storage_account_identity_ids" {
-  description = "Specifies a list of User Assigned Managed Identity IDs to be assigned to this Storage Account"
-  type        = list(string)
-  default     = null
-}
-
-variable "storage_account_network_rules_enabled" {
-  description = "Enable Storage account network default rules for functions"
-  type        = bool
-  default     = true
-}
-
-variable "storage_account_network_bypass" {
-  description = "Specifies whether traffic is bypassed for Logging/Metrics/AzureServices. Valid options are any combination of `Logging`, `Metrics`, `AzureServices`, or `None`."
-  type        = list(string)
-  default     = ["Logging", "Metrics", "AzureServices"]
-}
-
-variable "storage_account_authorized_ips" {
-  description = "IPs restriction for Function storage account in CIDR format"
-  type        = list(string)
-  default     = []
-}
-
-####################
-# APP SERVICE PLAN #
-####################
-
-variable "asp_sku" {
-  description = "SKU of the App Service Plan for Function App hosting"
-  type        = string
-  default     = "S1"
-}
-
-variable "asp_os_type" {
-  description = "OS of the App Service Plan for Function App hosting"
-  type        = string
-}
-
-variable "asp_instance_size" {
-  description = "The number of Workers (instances) to be allocated to the ASP"
-  type        = number
-  default     = 1
-}
-
-variable "asp_per_site_scaling_enabled" {
-  description = "Should Per Site Scaling be enabled"
-  type        = bool
-  default     = false
-}
-
-variable "asp_zone_balancing_enabled" {
-  description = "Should the Service Plan balance across Availability Zones in the region"
-  type        = bool
-  default     = false
-}
-
-###############
-# FUNCTIONAPP #
-###############
-
-variable "function_app_version" {
-  description = "Version of the function app runtime to use (Allowed values 2, 3 or 4)"
-  type        = number
-  default     = 4
-}
-
-variable "functionapp_package" {
-  description = "The ZIP file location of the functionapp package"
-  type        = string
-}
-
-variable "function_app_application_settings" {
-  description = "Function App application settings"
-  type        = map(string)
-  default     = {}
-}
-
-variable "function_app_application_settings_sensitive" {
-  description = "Function App application settings with sensitive values"
-  type        = map(string)
-  default     = {}
-}
-
-variable "site_config" {
-  description = "Site config for App Service. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config. IP restriction attribute is not managed in this block."
-  type        = any
-  default     = {}
-}
-
-variable "https_only" {
-  description = "Disable http procotol and keep only https"
-  type        = bool
-  default     = true
-}
-
-variable "builtin_logging_enabled" {
-  description = "Should built in logging be enabled"
-  type        = bool
-  default     = true
-}
-
-variable "client_certificate_enabled" {
-  description = "Should the function app use Client Certificates"
-  type        = bool
-  default     = null
-}
-
-variable "client_certificate_mode" {
-  description = "(Optional) The mode of the Function App's client certificates requirement for incoming requests. Possible values are `Required`, `Optional`, and `OptionalInteractiveUser`."
-  type        = string
-  default     = null
-}
-
-variable "application_zip_package_path" {
-  description = "Local or remote path of a zip package to deploy on the Function App"
-  type        = string
-  default     = null
-}
-
-# variable "function_app_vnet_integration_enabled" {
-#   description = "Enable VNET integration with the Function App. `function_app_vnet_integration_subnet_id` is mandatory if enabled"
-#   type        = bool
-#   default     = false
-# }
-
-# variable "function_app_vnet_integration_subnet_id" {
-#   description = "ID of the subnet to associate with the Function App (VNet integration)"
-#   type        = string
-#   default     = null
-# }
-
-################
-# APP INSIGHTS #
-################
-
-variable "application_insights_enabled" {
-  description = "Enable or disable the Application Insights deployment"
-  type        = bool
-  default     = true
-}
-
-variable "application_insights_name" {
-  description = "name of the existing Application Insights to use instead of deploying a new one."
-  type        = string
-  default     = null
-}
-
-variable "application_insights_log_analytics_workspace_id" {
-  description = "ID of the Log Analytics Workspace to be used with Application Insights"
-  type        = string
-  default     = null
-}
-
-variable "application_insights_type" {
-  description = "Application Insights type if need to be generated. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights#application_type"
-  type        = string
-  default     = "web"
-}
-
-variable "application_insights_retention" {
-  description = "Specify retention period (in days) for logs"
-  type        = number
-  default     = 90
-}
-
-#############
-# LOGIC APP #
-#############
-
-variable "logicapp_enabled" {
-  description = "Enable or disable a Logic App deployment"
-  type        = bool
-  default     = false
-}
-
-variable "logicapp_template" {
-  description = "The ARM template of the Logic App deployment"
-  type        = string
-  default     = null
-}
-
-variable "logicapp_parameters" {
-  description = "The Logic App ARM template parameters"
-  type        = string
-  default     = null
-}
-
-variable "logicapp_api_connection_template" {
-  description = "The ARM template of the Logic App api connection deployment"
-  type        = string
-  default     = null
-}
-
-variable "logicapp_api_connection_parameters" {
-  description = "The Logic App api connection ARM template parameters"
-  type        = string
-  default     = null
-}
-
-############
-# TAGGING  #
-############
 
 variable "namespace" {
   type        = string
@@ -318,7 +148,7 @@ variable "application" {
 
 variable "application_group" {
   type        = string
-  description = "Application to which the s3 bucket relates"
+  description = "Group which function app belongs to"
   default     = ""
 }
 
