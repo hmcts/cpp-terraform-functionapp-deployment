@@ -144,7 +144,7 @@
                                     "reference": "@triggerBody()?['reference']"
                                 },
                                 "function": {
-                                    "id": "/subscriptions/${subscription_id}/resourceGroups/${resource_group_name}/providers/Microsoft.Web/sites/$(function_app_name)/functions/generate-notification-email"
+                                    "id": "/subscriptions/${subscription_id}/resourceGroups/${resource_group_name}/providers/Microsoft.Web/sites/${function_app_name}/functions/generate-notification-email"
                                 },
                                 "queries": {
                                     "templateId": "@{triggerBody()['templateId']}"
