@@ -148,11 +148,11 @@ resource "azurerm_resource_group_template_deployment" "logic_app" {
   template_content = templatefile("${path.module}/templates/${var.application_group}/logicapp/${each.key}.json", {
     name                = "lg-${var.environment}-${var.namespace}-${each.key}"
     resource_group_name = azurerm_resource_group.main.name
-    uri_reference       = each.value.uri_reference
-    shared_email_box    = each.value.shared_email_box
+    uri_reference       = try(each.value.uri_reference, "")
+    shared_email_box    = try(each.value.shared_email_box, "")
+    function_app_name   = try(each.value.function_app_name, "")
     environment         = var.environment
     subscription_id     = data.azurerm_subscription.current.subscription_id
-    function_app_name   = each.value.function_app_name
   })
   deployment_mode = "Incremental"
   tags            = module.tag_set.tags

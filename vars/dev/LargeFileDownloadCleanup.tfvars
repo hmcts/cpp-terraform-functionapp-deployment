@@ -17,7 +17,7 @@ application_insights = {
 }
 
 functionapps = {
-  fa-dev-cpp-notifyatt = {
+  fa-dev-cpp-LargeFileDownloadCleanup = {
     asp_sku                      = "S1"
     asp_os_type                  = "Windows"
     asp_instance_size            = 1
