@@ -102,7 +102,7 @@ module "functionapp" {
   application_settings_sensitive_hashicorp_vault_lookup = each.value.application_settings_sensitive_hashicorp_vault_lookup
   functionapp_package                                   = each.value.functionapp_package
   site_config                                           = merge(each.value.site_config, local.default_site_config)
-  service_plan_name                                     = each.value.service_plan_name != null ? each.value.service_plan_name : "as-${var.environment}-${var.namespace}-${var.application}"
+  service_plan_name                                     = each.value.service_plan_name != null ? each.value.service_plan_name : "as-${var.environment}-${var.namespace}-${each.value.application}"
   create_service_plan                                   = each.value.create_service_plan
   key_vault_id                                          = azurerm_key_vault.main.id
   depends_on = [

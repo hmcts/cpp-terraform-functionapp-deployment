@@ -77,6 +77,7 @@ functionapps = {
     application_settings_sensitive_hashicorp_vault_lookup = {}
     functionapp_package                                   = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/stagingbulkscan/stagingbulkscan-azure-functions/7.0.9/stagingbulkscan-azure-functions-7.0.9.zip"
     site_config                                           = {}
+    application                                           = "bulkscan"
     service_plan_name                                     = null
     create_service_plan                                   = true
     storage_account_name                                  = "sadevccp0101blksfa02"

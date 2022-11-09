@@ -39,6 +39,7 @@ functionapps = {
     site_config = {
       use_32_bit_worker_process = true
     }
+    application          = "LargeFileDownloadCleanup"
     service_plan_name    = null
     create_service_plan  = true
     storage_account_name = "sadevccplargefilestest"

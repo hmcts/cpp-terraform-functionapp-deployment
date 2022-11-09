@@ -41,6 +41,7 @@ variable "functionapps" {
     application_settings_sensitive_hashicorp_vault_lookup = map(string)
     functionapp_package                                   = string
     site_config                                           = map(string)
+    application                                           = string
     service_plan_name                                     = string
     create_service_plan                                   = bool
     storage_account_name                                  = string
