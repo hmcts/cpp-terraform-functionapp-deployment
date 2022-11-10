@@ -44,7 +44,7 @@ application_insights = {
 }
 
 functionapps = {
-  fa-dev-ccp-bulkscan = {
+  fa-dev-cpp-bulkscan = {
     asp_sku                      = "S1"
     asp_os_type                  = "Windows"
     asp_instance_size            = 1
