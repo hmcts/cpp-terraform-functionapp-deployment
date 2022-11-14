@@ -35,7 +35,7 @@ application_insights = {
 }
 
 functionapps = {
-  fa-dev-cpp-courtorders = {
+  fa-dev-ccp0101-scsl = {
     asp_sku                      = "EP1"
     asp_os_type                  = "Linux"
     asp_instance_size            = 1
@@ -80,7 +80,7 @@ functionapps = {
     create_service_plan  = true
     storage_account_name = "sadevccp0101hearingres2"
   },
-  fa-dev-cpp-courtreg = {
+  fa-dev-ccp0101-scsl-enabler = {
     asp_sku                      = "EP1"
     asp_os_type                  = "Linux"
     asp_instance_size            = 1
