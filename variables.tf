@@ -40,6 +40,7 @@ variable "functionapps" {
     application_settings_sensitive_keyvault_lookup        = map(string)
     application_settings_sensitive_hashicorp_vault_lookup = map(string)
     functionapp_package                                   = string
+    function_app_version                                  = number
     site_config                                           = map(string)
     application                                           = string
     service_plan_name                                     = string
