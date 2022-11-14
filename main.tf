@@ -89,6 +89,7 @@ module "functionapp" {
   for_each                                              = var.functionapps
   location                                              = var.location
   function_app_name                                     = each.key
+  function_app_version                                  = each.value.function_app_version
   resource_group_name                                   = azurerm_resource_group.main.name
   asp_os_type                                           = each.value.asp_os_type
   asp_instance_size                                     = each.value.asp_instance_size
