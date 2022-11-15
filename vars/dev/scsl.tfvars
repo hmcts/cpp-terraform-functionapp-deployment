@@ -1,5 +1,5 @@
 storage_accounts = {
-  rgsitccp0101scsla2c8 = {
+  rgdevccp0101scsla2c8 = {
     identity_type             = "SystemAssigned"
     identity_ids              = null
     replication_type          = "LRS"
@@ -8,7 +8,7 @@ storage_accounts = {
     min_tls_version           = "TLS1_2"
     enable_https_traffic_only = true
   }
-  sasitccmscslmi = {
+  sadevccmscslmi = {
     identity_type             = "SystemAssigned"
     identity_ids              = null
     replication_type          = "LRS"
@@ -17,7 +17,7 @@ storage_accounts = {
     min_tls_version           = "TLS1_2"
     enable_https_traffic_only = true
   }
-  sasitccp0101scslfa = {
+  sadevccp0101scslfa = {
     identity_type             = "SystemAssigned"
     identity_ids              = null
     replication_type          = "LRS"
