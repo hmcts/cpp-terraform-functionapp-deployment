@@ -35,7 +35,7 @@ application_insights = {
 }
 
 functionapps = {
-  fa-dev-ccp0101-scsl2 = {
+  fa-dev-cpp-scsl = {
     asp_sku                      = "EP1"
     asp_os_type                  = "Linux"
     asp_instance_size            = 1
@@ -68,11 +68,9 @@ functionapps = {
       rotasl.cjscppuid                           = "f9b04933-4257-3de8-885f-6acca3f80c66"
       sasteccmscsl_STORAGE                       = "DefaultEndpointsProtocol=https;AccountName=sadevccm01;AccountKey=bLtRRN+BvpSeDoDts8i2df5IBys7kbbeA/okjVJeJ2mTXQahNwRLIyZ6AiTgUj+Hor1b/ej3iegcCYCOpvlxJA==;EndpointSuffix=core.windows.net"
       SCM_DO_BUILD_DURING_DEPLOYMENT             = false
-      scsl.db.password                           = "R0t15L@5it01P"
       scsl.db.url                                = "jdbc:postgresql://psf-dev-ccm01-rotasl.postgres.database.azure.com:5432/?sslmode=require"
       scsl.db.username                           = "scsl"
       snlt.hmi.apim.baseUrl                      = "https://spnl-dev-apim-int-gw.cpp.nonlive/fa-dev-ccm-snlt"
-      snlt.hmi.apim.subscription.key             = "d5f9ec582de6436d90b9248518faff20"
       unprocessed.data.cleaner.days              = ""
       unprocessed.data.cleaner.schedule          = "0 0 7 * * *"
       WEBSITE_HTTPLOGGING_RETENTION_DAYS         = 3
@@ -81,7 +79,7 @@ functionapps = {
     }
     application_settings_sensitive_keyvault_lookup = {}
     application_settings_sensitive_hashicorp_vault_lookup = {
-      scsl.db.password                = "R0t15L@5it01P"
+      scsl.db.password                = "secret/dev/devccm01/"
       snlt.hmi.apim.subscription.key  = "secret/dev/devccm01/snlt_sub_key"
     }
     functionapp_package = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/azure/legalaidagency/courtorders-azure-functions/7.0.145/courtorders-azure-functions-7.0.145.zip"
@@ -89,11 +87,11 @@ functionapps = {
       use_32_bit_worker_process = true
     }
     application          = "courtorders"
-    service_plan_name    = "sp-dev-ccp0101-scsl"
+    service_plan_name    = "sp-dev-cpp-scsl"
     create_service_plan  = true
     storage_account_name = "sadevccp0101hearingres2"
   },
-  fa-dev-ccp0101-scsl-enabler2 = {
+  fa-dev-cpp-scsl-enabler = {
     asp_sku                      = "EP1"
     asp_os_type                  = "Linux"
     asp_instance_size            = 1
@@ -106,7 +104,7 @@ functionapps = {
       APPINSIGHTS_INSTRUMENTATIONKEY           = "3d0fd519-ae97-4994-abe2-9ed000f500c6"
       APPLICATIONINSIGHTS_CONNECTION_STRING    = "InstrumentationKey=3d0fd519-ae97-4994-abe2-9ed000f500c6;IngestionEndpoint=https://uksouth-1.in.applicationinsights.azure.com/;LiveEndpoint=https://uksouth.livediagnostics.monitor.azure.com/"
       AppTenantId                              = "e2995d11-9947-4e78-9de6-d44e0603518e"
-      AzureWebJobsStorage                      = "DefaultEndpointsProtocol=https;AccountName=sadevccp0101scslfa;AccountKey=aJz+MN+ikOh5qUWfzvST1J4RPXzXcLCxb9o+CWTapRB0XRQzEUbk2AM5jrgFphsisyjf74e+QlVwR6kE53+Xvg==;EndpointSuffix=core.windows.net"
+      AzureWebJobsStorage                      = "DefaultEndpointsProtocol=https;AccountName=sadevccp0101scslfa2;AccountKey=aJz+MN+ikOh5qUWfzvST1J4RPXzXcLCxb9o+CWTapRB0XRQzEUbk2AM5jrgFphsisyjf74e+QlVwR6kE53+Xvg==;EndpointSuffix=core.windows.net"
       ENABLE_ORYX_BUILD                        = false
       FUNCTIONS_EXTENSION_VERSION              = "~4"
       FUNCTIONS_WORKER_RUNTIME                 = "powershell"
@@ -117,17 +115,13 @@ functionapps = {
       RotaFileProcessorFunctionSubscriptionId  = "e6b5053b-4c38-4475-a835-a025aeb3d8c7"
     }
     application_settings_sensitive_keyvault_lookup = {}
-    application_settings_sensitive_hashicorp_vault_lookup = {
-      REDIS_KEY                   = "secret/dev/devccm01/hearingres-rediskey"
-      LAA_PUBLISH_RESULTS_API_KEY = "secret/dev/devccm01/hearingres-laapublishapikey"
-      CJSCPPUID                   = "secret/dev/devccm01/hearingres-cjscppuid"
-    }
+    application_settings_sensitive_hashicorp_vault_lookup = {}
     functionapp_package = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/azure/legalaidagency/courtregister-azure-functions/7.0.145/courtregister-azure-functions-7.0.145.zip"
     site_config = {
       use_32_bit_worker_process = true
     }
     application          = "courtreg"
-    service_plan_name    = "sp-dev-ccp0101-scsl-enabler"
+    service_plan_name    = "sp-dev-cpp-scsl-enabler"
     create_service_plan  = true
     storage_account_name = "sadevccp0101hearingres2"
   }
