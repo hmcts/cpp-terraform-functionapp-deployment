@@ -79,7 +79,7 @@ functionapps = {
     }
     application_settings_sensitive_keyvault_lookup = {}
     application_settings_sensitive_hashicorp_vault_lookup = {
-      scsl.db.password               = "secret/dev/devccm01/"
+      scsl.db.password               = "secret/dev/devccm01/scsl_db_password"
       snlt.hmi.apim.subscription.key = "secret/dev/devccm01/snlt_sub_key"
     }
     functionapp_package = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/azure/legalaidagency/courtorders-azure-functions/7.0.145/courtorders-azure-functions-7.0.145.zip"
