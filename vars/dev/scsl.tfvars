@@ -116,7 +116,7 @@ functionapps = {
     }
     application_settings_sensitive_keyvault_lookup        = {}
     application_settings_sensitive_hashicorp_vault_lookup = {}
-    functionapp_package = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/staging/prosecutors/spi/stagingprosecutors-azure-functions/8.0.3/stagingprosecutors-azure-functions-8.0.3.zip"
+    functionapp_package                                   = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/staging/prosecutors/spi/stagingprosecutors-azure-functions/8.0.3/stagingprosecutors-azure-functions-8.0.3.zip"
     site_config = {
       use_32_bit_worker_process = true
     }
