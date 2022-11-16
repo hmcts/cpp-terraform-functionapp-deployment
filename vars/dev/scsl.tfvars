@@ -50,6 +50,7 @@ functionapps = {
       "AzureWebJobs.rotaFileProcessor.Disabled"  = 0
       AzureWebJobsDashboard                      = "DefaultEndpointsProtocol=https;AccountName=sadevccp0101scslfa2;AccountKey=aJz+MN+ikOh5qUWfzvST1J4RPXzXcLCxb9o+CWTapRB0XRQzEUbk2AM5jrgFphsisyjf74e+QlVwR6kE53+Xvg==;EndpointSuffix=core.windows.net"
       AzureWebJobsStorage                        = "DefaultEndpointsProtocol=https;AccountName=sadevccp0101scslfa2;AccountKey=aJz+MN+ikOh5qUWfzvST1J4RPXzXcLCxb9o+CWTapRB0XRQzEUbk2AM5jrgFphsisyjf74e+QlVwR6kE53+Xvg==;EndpointSuffix=core.windows.net"
+      CONTAINER_NAME                             = "azure-webjobs-secrets"
       ENABLE_ORYX_BUILD                          = false
       FUNCTIONS_EXTENSION_VERSION                = "~2"
       FUNCTIONS_WORKER_RUNTIME                   = "java"
@@ -105,6 +106,7 @@ functionapps = {
       APPLICATIONINSIGHTS_CONNECTION_STRING   = "InstrumentationKey=3d0fd519-ae97-4994-abe2-9ed000f500c6;IngestionEndpoint=https://uksouth-1.in.applicationinsights.azure.com/;LiveEndpoint=https://uksouth.livediagnostics.monitor.azure.com/"
       AppTenantId                             = "e2995d11-9947-4e78-9de6-d44e0603518e"
       AzureWebJobsStorage                     = "DefaultEndpointsProtocol=https;AccountName=sadevccp0101scslfa2;AccountKey=aJz+MN+ikOh5qUWfzvST1J4RPXzXcLCxb9o+CWTapRB0XRQzEUbk2AM5jrgFphsisyjf74e+QlVwR6kE53+Xvg==;EndpointSuffix=core.windows.net"
+      CONTAINER_NAME                          = "azure-webjobs-secrets"
       ENABLE_ORYX_BUILD                       = false
       FUNCTIONS_EXTENSION_VERSION             = "~4"
       FUNCTIONS_WORKER_RUNTIME                = "powershell"
