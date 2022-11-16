@@ -79,8 +79,8 @@ functionapps = {
     }
     application_settings_sensitive_keyvault_lookup = {}
     application_settings_sensitive_hashicorp_vault_lookup = {
-      scsl.db.password                = "secret/dev/devccm01/"
-      snlt.hmi.apim.subscription.key  = "secret/dev/devccm01/snlt_sub_key"
+      scsl.db.password               = "secret/dev/devccm01/"
+      snlt.hmi.apim.subscription.key = "secret/dev/devccm01/snlt_sub_key"
     }
     functionapp_package = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/azure/legalaidagency/courtorders-azure-functions/7.0.145/courtorders-azure-functions-7.0.145.zip"
     site_config = {
@@ -99,24 +99,24 @@ functionapps = {
     asp_zone_balancing_enabled   = false
     create_service_plan          = true
     application_settings = {
-      AppClientId                              = "fd78b297-45c6-47c4-aa08-701cda5099aa"
-      AppClientSecret                          = "eDD7Q~~a8r1rvdIm7~ZHDiN1d7PV2SGTCKAtI"
-      APPINSIGHTS_INSTRUMENTATIONKEY           = "3d0fd519-ae97-4994-abe2-9ed000f500c6"
-      APPLICATIONINSIGHTS_CONNECTION_STRING    = "InstrumentationKey=3d0fd519-ae97-4994-abe2-9ed000f500c6;IngestionEndpoint=https://uksouth-1.in.applicationinsights.azure.com/;LiveEndpoint=https://uksouth.livediagnostics.monitor.azure.com/"
-      AppTenantId                              = "e2995d11-9947-4e78-9de6-d44e0603518e"
-      AzureWebJobsStorage                      = "DefaultEndpointsProtocol=https;AccountName=sadevccp0101scslfa2;AccountKey=aJz+MN+ikOh5qUWfzvST1J4RPXzXcLCxb9o+CWTapRB0XRQzEUbk2AM5jrgFphsisyjf74e+QlVwR6kE53+Xvg==;EndpointSuffix=core.windows.net"
-      ENABLE_ORYX_BUILD                        = false
-      FUNCTIONS_EXTENSION_VERSION              = "~4"
-      FUNCTIONS_WORKER_RUNTIME                 = "powershell"
-      RotaFileProcessDisablerCronExp           = "0 0 6 1/1 * *"
-      RotaFileProcessEnablerCronExp            = "0 0 19 1/1 * *"
-      RotaFileProcessorFunctionName            = "fa-dev-ccm-scsl"
-      RotaFileProcessorFunctionResourceGroup   = "RG-DEV-CCM-SCSL"
-      RotaFileProcessorFunctionSubscriptionId  = "e6b5053b-4c38-4475-a835-a025aeb3d8c7"
+      AppClientId                             = "fd78b297-45c6-47c4-aa08-701cda5099aa"
+      AppClientSecret                         = "eDD7Q~~a8r1rvdIm7~ZHDiN1d7PV2SGTCKAtI"
+      APPINSIGHTS_INSTRUMENTATIONKEY          = "3d0fd519-ae97-4994-abe2-9ed000f500c6"
+      APPLICATIONINSIGHTS_CONNECTION_STRING   = "InstrumentationKey=3d0fd519-ae97-4994-abe2-9ed000f500c6;IngestionEndpoint=https://uksouth-1.in.applicationinsights.azure.com/;LiveEndpoint=https://uksouth.livediagnostics.monitor.azure.com/"
+      AppTenantId                             = "e2995d11-9947-4e78-9de6-d44e0603518e"
+      AzureWebJobsStorage                     = "DefaultEndpointsProtocol=https;AccountName=sadevccp0101scslfa2;AccountKey=aJz+MN+ikOh5qUWfzvST1J4RPXzXcLCxb9o+CWTapRB0XRQzEUbk2AM5jrgFphsisyjf74e+QlVwR6kE53+Xvg==;EndpointSuffix=core.windows.net"
+      ENABLE_ORYX_BUILD                       = false
+      FUNCTIONS_EXTENSION_VERSION             = "~4"
+      FUNCTIONS_WORKER_RUNTIME                = "powershell"
+      RotaFileProcessDisablerCronExp          = "0 0 6 1/1 * *"
+      RotaFileProcessEnablerCronExp           = "0 0 19 1/1 * *"
+      RotaFileProcessorFunctionName           = "fa-dev-ccm-scsl"
+      RotaFileProcessorFunctionResourceGroup  = "RG-DEV-CCM-SCSL"
+      RotaFileProcessorFunctionSubscriptionId = "e6b5053b-4c38-4475-a835-a025aeb3d8c7"
     }
-    application_settings_sensitive_keyvault_lookup = {}
+    application_settings_sensitive_keyvault_lookup        = {}
     application_settings_sensitive_hashicorp_vault_lookup = {}
-    functionapp_package = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/azure/legalaidagency/courtregister-azure-functions/7.0.145/courtregister-azure-functions-7.0.145.zip"
+    functionapp_package                                   = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/azure/legalaidagency/courtregister-azure-functions/7.0.145/courtregister-azure-functions-7.0.145.zip"
     site_config = {
       use_32_bit_worker_process = true
     }
