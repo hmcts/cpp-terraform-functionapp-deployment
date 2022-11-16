@@ -86,7 +86,7 @@ functionapps = {
     site_config = {
       use_32_bit_worker_process = true
     }
-    application          = "courtorders"
+    application          = "fa-dev-cpp-scsl"
     service_plan_name    = "sp-dev-cpp-scsl"
     create_service_plan  = true
     storage_account_name = "sadevccp0101scslfa2"
@@ -120,7 +120,7 @@ functionapps = {
     site_config = {
       use_32_bit_worker_process = true
     }
-    application          = "courtreg"
+    application          = "fa-dev-cpp-scsl-enabler"
     service_plan_name    = "sp-dev-cpp-scsl-enabler"
     create_service_plan  = true
     storage_account_name = "sadevccp0101scslfa2"
