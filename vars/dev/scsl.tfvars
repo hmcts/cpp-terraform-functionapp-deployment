@@ -82,7 +82,7 @@ functionapps = {
       "scsl.db.password"               = "secret/dev/devccm01/scsl_db_password"
       "snlt.hmi.apim.subscription.key" = "secret/dev/devccm01/snlt_sub_key"
     }
-    functionapp_package = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/azure/legalaidagency/courtorders-azure-functions/7.0.145/courtorders-azure-functions-7.0.145.zip"
+    functionapp_package = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/staging/prosecutors/spi/stagingprosecutors-azure-functions/8.0.3/stagingprosecutors-azure-functions-8.0.3.zip"
     site_config = {
       use_32_bit_worker_process = true
     }
@@ -116,7 +116,7 @@ functionapps = {
     }
     application_settings_sensitive_keyvault_lookup        = {}
     application_settings_sensitive_hashicorp_vault_lookup = {}
-    functionapp_package                                   = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/azure/legalaidagency/courtregister-azure-functions/7.0.145/courtregister-azure-functions-7.0.145.zip"
+    functionapp_package = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/staging/prosecutors/spi/stagingprosecutors-azure-functions/8.0.3/stagingprosecutors-azure-functions-8.0.3.zip"
     site_config = {
       use_32_bit_worker_process = true
     }
