@@ -89,7 +89,7 @@ functionapps = {
     application          = "fa-dev-cpp-scsl"
     service_plan_name    = "sp-dev-cpp-scsl"
     create_service_plan  = true
-    storage_account_name = "sadevccp0101scslfa2"
+    storage_account_name = "sadevccp0101scslfa3"
   },
   fa-dev-cpp-scsl-enabler = {
     asp_sku                      = "EP1"
@@ -123,7 +123,7 @@ functionapps = {
     application          = "fa-dev-cpp-scsl-enabler"
     service_plan_name    = "sp-dev-cpp-scsl-enabler"
     create_service_plan  = true
-    storage_account_name = "sadevccp0101scslfa2"
+    storage_account_name = "sadevccp0101scslfa3"
   }
 }
 
