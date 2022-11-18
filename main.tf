@@ -64,7 +64,7 @@ resource "azurerm_storage_account" "main" {
 
 resource "azurerm_key_vault_secret" "sa_connection_strings" {
   for_each     = local.sa_name_connection_strings_map
-  name         = "ado--cpp-terraform-functionapp-deployment--${var.environment}--${each.key}--connection-string"
+  name         = "ado--cpp-terraform-functionapp-deployment--${var.environment}--${each.key}--connection-string-test"
   value        = each.value
   key_vault_id = azurerm_key_vault.main.id
   depends_on = [
