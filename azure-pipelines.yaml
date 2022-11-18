@@ -1,67 +1,66 @@
 name: CPP Azure FunctionApp Deployment
 trigger: none
 pr:
-- main
+  - main
 
 parameters:
-- name: environment
-  displayName: Environment and Terraform Workspace
-  type: string
-  default: dev
-  values:
-  - dev
-  - live
-  - nft
-  - nonlive
-  - sit
-- name: functionapp
-  displayName: The name of the application
-  default: notifyatt
-- name: tfversion
-  default: 1.3.1
-- name: agentPool
-  values:
-  - "MDV-ADO-AGENTS-01"
-  - "MPD-ADO-AGENTS-01"
-  default: "MDV-ADO-AGENTS-01"
-- name: platform
-  values:
-  - nonlive
-  - live
-  default: nonlive
+  - name: environment
+    displayName: Environment and Terraform Workspace
+    type: string
+    default: dev
+    values:
+      - dev
+      - live
+      - nft
+      - nonlive
+      - sit
+  - name: functionapp
+    displayName: The name of the application
+    default: notifyatt
+  - name: tfversion
+    default: 1.3.1
+  - name: agentPool
+    values:
+      - 'MDV-ADO-AGENTS-01'
+      - 'MPD-ADO-AGENTS-01'
+    default: 'MDV-ADO-AGENTS-01'
+  - name: platform
+    values:
+      - nonlive
+      - live
+    default: nonlive
 
 variables:
-- template: azure-pipeline-variables/${{ parameters.platform }}.yml
+  - template: azure-pipeline-variables/${{ parameters.platform }}.yml
 
 resources:
   repositories:
-  - repository: cppAzureDevOpsTemplates
-    type: github
-    name: hmcts/cpp-azure-devops-templates
-    ref: 'main'
-    endpoint: 'cpp-apps'
+    - repository: cppAzureDevOpsTemplates
+      type: github
+      name: hmcts/cpp-azure-devops-templates
+      ref: 'c871b68a8cab921b9ba7683f4a1b95544f84197c'
+      endpoint: 'cpp-apps'
 
 stages:
   - stage: precommit
     pool:
       name: ${{ parameters.agentPool }}
     jobs:
-    - job: precommit
-      steps:
-      - template: steps/terraform/terraform-precommit.yaml@cppAzureDevOpsTemplates
-        parameters:
-          tfversion: ${{ parameters.tfversion }}
-
+      - job: precommit
+        steps:
+          - template: steps/terraform/terraform-precommit.yaml@cppAzureDevOpsTemplates
+            parameters:
+              tfversion: ${{ parameters.tfversion }}
 
   - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
-    - template: pipelines/terraform-ws-plan-and-apply.yaml@cppAzureDevOpsTemplates
-      parameters:
-        tfversion: ${{ parameters.tfversion }}
-        azureServiceConnection: ${{ variables.azureServiceConnection }}
-        spnCredentialsVarGroup: ${{ variables.spnCredentialsVarGroup }}
-        vaultAdminCredentialsVarGroup: ${{ variables.vaultAdminCredentialsVarGroup }}
-        platform: ${{ parameters.platform }}
-        environment: ${{ parameters.environment }}
-        tfvars: ${{ parameters.functionapp }}
-        serviceName: ${{ parameters.functionapp }}
-        agentPool: ${{ parameters.agentPool }}
+      - template: pipelines/terraform-ws-plan-and-apply.yaml@cppAzureDevOpsTemplates
+        parameters:
+          tfversion: ${{ parameters.tfversion }}
+          azureServiceConnection: ${{ variables.azureServiceConnection }}
+          spnCredentialsVarGroup: ${{ variables.spnCredentialsVarGroup }}
+          vaultAdminCredentialsVarGroup: ${{ variables.vaultAdminCredentialsVarGroup }}
+          platform: ${{ parameters.platform }}
+          environment: ${{ parameters.environment }}
+          tfvars: ${{ parameters.functionapp }}
+          serviceName: ${{ parameters.functionapp }}
+          agentPool: ${{ parameters.agentPool }}
