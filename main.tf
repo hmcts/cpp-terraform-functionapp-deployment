@@ -68,7 +68,8 @@ resource "azurerm_key_vault_secret" "sa_connection_strings" {
   value        = each.value
   key_vault_id = azurerm_key_vault.main.id
   depends_on = [
-    azurerm_storage_account.main
+    azurerm_storage_account.main,
+    azurerm_key_vault.main
   ]
 }
 
