@@ -1,5 +1,5 @@
 storage_accounts = {
-  rgdevccp0101scsla2c83 = {
+  rgdevccp0101scsla2c82 = {
     identity_type             = "SystemAssigned"
     identity_ids              = null
     replication_type          = "LRS"
@@ -8,7 +8,7 @@ storage_accounts = {
     min_tls_version           = "TLS1_2"
     enable_https_traffic_only = true
   }
-  sadevccmscslmi3 = {
+  sadevccmscslmi2 = {
     identity_type             = "SystemAssigned"
     identity_ids              = null
     replication_type          = "LRS"
@@ -17,7 +17,7 @@ storage_accounts = {
     min_tls_version           = "TLS1_2"
     enable_https_traffic_only = true
   }
-  sadevccp0101scslfa3 = {
+  sadevccp0101scslfa2 = {
     identity_type             = "SystemAssigned"
     identity_ids              = null
     replication_type          = "LRS"
@@ -36,7 +36,7 @@ application_insights = {
 
 functionapps = {
   fa-dev-cpp-scsl = {
-    asp_sku                      = "EP1"
+    asp_sku                      = "S1"
     asp_os_type                  = "Windows"
     asp_instance_size            = 1
     asp_per_site_scaling_enabled = false
@@ -48,8 +48,8 @@ functionapps = {
       ApplicationInsightsAgent_EXTENSION_VERSION = "~2"
       "AzureWebJobs.cppRotaDataMapper.Disabled"  = 0
       "AzureWebJobs.rotaFileProcessor.Disabled"  = 0
-      AzureWebJobsDashboard                      = "DefaultEndpointsProtocol=https;AccountName=sadevccp0101scslfa3;AccountKey=aJz+MN+ikOh5qUWfzvST1J4RPXzXcLCxb9o+CWTapRB0XRQzEUbk2AM5jrgFphsisyjf74e+QlVwR6kE53+Xvg==;EndpointSuffix=core.windows.net"
-      AzureWebJobsStorage                        = "DefaultEndpointsProtocol=https;AccountName=sadevccp0101scslfa3;AccountKey=aJz+MN+ikOh5qUWfzvST1J4RPXzXcLCxb9o+CWTapRB0XRQzEUbk2AM5jrgFphsisyjf74e+QlVwR6kE53+Xvg==;EndpointSuffix=core.windows.net"
+      AzureWebJobsDashboard                      = "DefaultEndpointsProtocol=https;AccountName=sadevccp0101scslfa2;AccountKey=Z4v86hdChrh3R4o4PDiqi+j0OqjkdU1vFpD7Jgn34QhIPm/NNYxVOTNyjNxRRJFGaenThO6g5QOr+AStrpHo8w==;EndpointSuffix=core.windows.net"
+      AzureWebJobsStorage                        = "DefaultEndpointsProtocol=https;AccountName=sadevccp0101scslfa2;AccountKey=Z4v86hdChrh3R4o4PDiqi+j0OqjkdU1vFpD7Jgn34QhIPm/NNYxVOTNyjNxRRJFGaenThO6g5QOr+AStrpHo8w==;EndpointSuffix=core.windows.net"
       ENABLE_ORYX_BUILD                          = false
       FUNCTIONS_EXTENSION_VERSION                = "~2"
       FUNCTIONS_WORKER_RUNTIME                   = "java"
@@ -57,7 +57,7 @@ functionapps = {
       "mi.data.cleaner.schedule"                 = "0 0 7 * * *"
       "mi.data.delete.days"                      = "7"
       "mi.storgage.blob.container"               = "mi-blob-container"
-      "mi.storage.url"                           = "DefaultEndpointsProtocol=https;AccountName=sadevccmscslmi3;AccountKey=w+/Sm0yHH3b3J8LWT0ZfVC0Tgl5HiAUiWvs03fuquFN0hmWOylVhoMfn7cSwjMJIttJVoOdJ6CrUKEoG/QgEJg==;EndpointSuffix=core.windows.net"
+      "mi.storage.url"                           = "DefaultEndpointsProtocol=https;AccountName=sadevccmscslmi2;AccountKey=uSoKc4Z4znTAhsEc1AjMkqOjZHOeqnBileE6aehFntHs+LeLfYuczG7boe9rooCHhvcTsqf36AJr+AStB7AUBw==;EndpointSuffix=core.windows.net"
       "mireportdata.host"                        = "http://DEVCCM01ACTAP03.cpp.nonlive:8080"
       "referencedata.cjscppuid"                  = "c2c9b689-2ce6-43b3-9143-1c0c02235aa1"
       "referencedata.host"                       = "http://devccm01actap01.cpp.nonlive:8080"
@@ -89,10 +89,10 @@ functionapps = {
     application          = "fa-dev-cpp-scsl"
     service_plan_name    = "sp-dev-cpp-scsl"
     create_service_plan  = true
-    storage_account_name = "sadevccp0101scslfa3"
+    storage_account_name = "sadevccp0101scslfa2"
   },
   fa-dev-cpp-scsl-enabler = {
-    asp_sku                      = "EP1"
+    asp_sku                      = "S1"
     asp_os_type                  = "Windows"
     asp_instance_size            = 1
     asp_per_site_scaling_enabled = false
@@ -104,7 +104,7 @@ functionapps = {
       APPINSIGHTS_INSTRUMENTATIONKEY          = "3d0fd519-ae97-4994-abe2-9ed000f500c6"
       APPLICATIONINSIGHTS_CONNECTION_STRING   = "InstrumentationKey=3d0fd519-ae97-4994-abe2-9ed000f500c6;IngestionEndpoint=https://uksouth-1.in.applicationinsights.azure.com/;LiveEndpoint=https://uksouth.livediagnostics.monitor.azure.com/"
       AppTenantId                             = "e2995d11-9947-4e78-9de6-d44e0603518e"
-      AzureWebJobsStorage                     = "DefaultEndpointsProtocol=https;AccountName=sadevccp0101scslfa3;AccountKey=aJz+MN+ikOh5qUWfzvST1J4RPXzXcLCxb9o+CWTapRB0XRQzEUbk2AM5jrgFphsisyjf74e+QlVwR6kE53+Xvg==;EndpointSuffix=core.windows.net"
+      AzureWebJobsStorage                     = "DefaultEndpointsProtocol=https;AccountName=sadevccp0101scslfa2;AccountKey=Z4v86hdChrh3R4o4PDiqi+j0OqjkdU1vFpD7Jgn34QhIPm/NNYxVOTNyjNxRRJFGaenThO6g5QOr+AStrpHo8w==;EndpointSuffix=core.windows.net"
       ENABLE_ORYX_BUILD                       = false
       FUNCTIONS_EXTENSION_VERSION             = "~4"
       FUNCTIONS_WORKER_RUNTIME                = "powershell"
@@ -123,7 +123,7 @@ functionapps = {
     application          = "fa-dev-cpp-scsl-enabler"
     service_plan_name    = "sp-dev-cpp-scsl-enabler"
     create_service_plan  = true
-    storage_account_name = "sadevccp0101scslfa3"
+    storage_account_name = "sadevccp0101scslfa2"
   }
 }
 
