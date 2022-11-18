@@ -37,7 +37,7 @@ application_insights = {
 functionapps = {
   fa-dev-cpp-scsl = {
     asp_sku                      = "EP1"
-    asp_os_type                  = "Linux"
+    asp_os_type                  = "Windows"
     asp_instance_size            = 1
     asp_per_site_scaling_enabled = false
     asp_zone_balancing_enabled   = false
@@ -93,7 +93,7 @@ functionapps = {
   },
   fa-dev-cpp-scsl-enabler = {
     asp_sku                      = "EP1"
-    asp_os_type                  = "Linux"
+    asp_os_type                  = "Windows"
     asp_instance_size            = 1
     asp_per_site_scaling_enabled = false
     asp_zone_balancing_enabled   = false
