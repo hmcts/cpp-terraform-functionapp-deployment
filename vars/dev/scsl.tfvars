@@ -35,7 +35,7 @@ application_insights = {
     retention_in_days          = 90
   }
   scsl_enabler = {
-    log_analytics_workspace_id = "defaultworkspace-e6b5053b-4c38-4475-a835-a025aeb3d8c7-suk"
+    log_analytics_workspace_id = "8a0206ac-85cf-451b-932a-781cbd14ed57"
     application_type           = "web"
     retention_in_days          = 90
   }
