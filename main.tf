@@ -204,3 +204,11 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "function_app_event
     url = "https://${each.value.functionapp_name}.azurewebsites.net/runtime/webhooks/EventGrid?functionName=${each.value.function_name}&code=${module.functionapp[each.value.functionapp_name].function_app_primary_key}"
   }
 }
+
+resource "azurerm_dashboard" "function_app_shared_dashboard" {
+  count                = var.shared_dashboard.create == true ? 1 : 0
+  name                 = "${var.environment}-${var.namespace}-${var.application_group}-dashboard"
+  resource_group_name  = azurerm_resource_group.main.name
+  location             = var.location
+  dashboard_properties = var.shared_dashboard.dashboard_json
+}

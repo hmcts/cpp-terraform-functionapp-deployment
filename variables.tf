@@ -169,3 +169,15 @@ variable "type" {
   description = "Name of service type"
   default     = ""
 }
+
+
+variable "shared_dashboard" {
+  type = object({
+    create         = bool
+    dashboard_json = string
+  })
+  default = {
+    create         = false
+    dashboard_json = "{}"
+  }
+}
