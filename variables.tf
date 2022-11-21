@@ -170,7 +170,6 @@ variable "type" {
   default     = ""
 }
 
-
 variable "shared_dashboard" {
   type = object({
     create         = bool
