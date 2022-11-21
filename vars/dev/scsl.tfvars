@@ -137,7 +137,7 @@ application_group = "scsl"
 type              = "functionapp"
 
 shared_dashboard = {
-  create = true
+  create         = true
   dashboard_json = <<-EOT
 {
     "lenses": {
