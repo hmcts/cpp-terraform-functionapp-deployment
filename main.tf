@@ -75,12 +75,13 @@ resource "azurerm_key_vault_secret" "sa_connection_strings" {
 
 # App Insights
 resource "azurerm_application_insights" "app_insights" {
-  name                = "ai-${var.environment}-${var.namespace}-${var.application_group}"
+  for_each            = var.application_insights
+  name                = "ai-${var.environment}-${var.namespace}-${each.value.function_app}"
   location            = var.location
   resource_group_name = azurerm_resource_group.main.name
-  workspace_id        = var.application_insights.log_analytics_workspace_id
-  application_type    = var.application_insights.application_type
-  retention_in_days   = var.application_insights.retention_in_days
+  workspace_id        = each.value.log_analytics_workspace_id
+  application_type    = each.value.application_type
+  retention_in_days   = each.value.retention_in_days
   tags                = module.tag_set.tags
 }
 

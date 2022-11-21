@@ -29,9 +29,18 @@ storage_accounts = {
 }
 
 application_insights = {
-  log_analytics_workspace_id = null
-  application_type           = "web"
-  retention_in_days          = 90
+  scsl = {
+    function_app               = 'scsl'
+    log_analytics_workspace_id = null
+    application_type           = "web"
+    retention_in_days          = 90
+  }
+  scsl_enabler = {
+    function_app               = 'scsl-enabler'
+    log_analytics_workspace_id = null
+    application_type           = "web"
+    retention_in_days          = 90
+  }
 }
 
 functionapps = {
