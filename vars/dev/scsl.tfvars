@@ -48,8 +48,6 @@ functionapps = {
       ApplicationInsightsAgent_EXTENSION_VERSION = "~2"
       "AzureWebJobs.cppRotaDataMapper.Disabled"  = 0
       "AzureWebJobs.rotaFileProcessor.Disabled"  = 0
-      AzureWebJobsDashboard                      = "DefaultEndpointsProtocol=https;AccountName=sadevccp0101scslfa2;AccountKey=Z4v86hdChrh3R4o4PDiqi+j0OqjkdU1vFpD7Jgn34QhIPm/NNYxVOTNyjNxRRJFGaenThO6g5QOr+AStrpHo8w==;EndpointSuffix=core.windows.net"
-      AzureWebJobsStorage                        = "DefaultEndpointsProtocol=https;AccountName=sadevccp0101scslfa2;AccountKey=Z4v86hdChrh3R4o4PDiqi+j0OqjkdU1vFpD7Jgn34QhIPm/NNYxVOTNyjNxRRJFGaenThO6g5QOr+AStrpHo8w==;EndpointSuffix=core.windows.net"
       ENABLE_ORYX_BUILD                          = false
       FUNCTIONS_EXTENSION_VERSION                = "~2"
       FUNCTIONS_WORKER_RUNTIME                   = "java"
@@ -57,16 +55,13 @@ functionapps = {
       "mi.data.cleaner.schedule"                 = "0 0 7 * * *"
       "mi.data.delete.days"                      = "7"
       "mi.storgage.blob.container"               = "mi-blob-container"
-      "mi.storage.url"                           = "DefaultEndpointsProtocol=https;AccountName=sadevccmscslmi2;AccountKey=uSoKc4Z4znTAhsEc1AjMkqOjZHOeqnBileE6aehFntHs+LeLfYuczG7boe9rooCHhvcTsqf36AJr+AStB7AUBw==;EndpointSuffix=core.windows.net"
       "mireportdata.host"                        = "http://DEVCCM01ACTAP03.cpp.nonlive:8080"
       "referencedata.cjscppuid"                  = "c2c9b689-2ce6-43b3-9143-1c0c02235aa1"
       "referencedata.host"                       = "http://devccm01actap01.cpp.nonlive:8080"
       "rota.blob.archive.container"              = "schedulelistingoutput"
       "rota.blob.container"                      = "schedulelistinginput"
-      "rota.blob.url"                            = "DefaultEndpointsProtocol=https;AccountName=sadevccm01;AccountKey=bLtRRN+BvpSeDoDts8i2df5IBys7kbbeA/okjVJeJ2mTXQahNwRLIyZ6AiTgUj+Hor1b/ej3iegcCYCOpvlxJA==;EndpointSuffix=core.windows.net"
       "rota.file.path"                           = "schedulelistinginput/{name}"
       "rotasl.cjscppuid"                         = "f9b04933-4257-3de8-885f-6acca3f80c66"
-      sasteccmscsl_STORAGE                       = "DefaultEndpointsProtocol=https;AccountName=sadevccm01;AccountKey=bLtRRN+BvpSeDoDts8i2df5IBys7kbbeA/okjVJeJ2mTXQahNwRLIyZ6AiTgUj+Hor1b/ej3iegcCYCOpvlxJA==;EndpointSuffix=core.windows.net"
       SCM_DO_BUILD_DURING_DEPLOYMENT             = false
       "scsl.db.url"                              = "jdbc:postgresql://psf-dev-ccm01-rotasl.postgres.database.azure.com:5432/?sslmode=require"
       "scsl.db.username"                         = "scsl"
@@ -81,6 +76,11 @@ functionapps = {
     application_settings_sensitive_hashicorp_vault_lookup = {
       "scsl.db.password"               = "secret/dev/devccm01/scsl_db_password"
       "snlt.hmi.apim.subscription.key" = "secret/dev/devccm01/snlt_sub_key"
+      AzureWebJobsDashboard            = "secret/dev/devccm01/scsl_sa_fa_connection"
+      AzureWebJobsStorage              = "secret/dev/devccm01/scsl_sa_fa_connection"
+      "mi.storage.url"                 = "secret/dev/devccm01/scsl_sa_mi_connection"
+      "rota.blob.url"                  = "secret/dev/devccm01/scsl_sa_ccm_connection"
+      sasteccmscsl_STORAGE             = "secret/dev/devccm01/scsl_sa_ccm_connection"
     }
     functionapp_package = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/rotasl/rotasl-azure-functions/3.0.9/rotasl-azure-functions-3.0.9.zip"
     site_config = {
