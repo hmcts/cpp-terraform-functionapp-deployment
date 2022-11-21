@@ -50,7 +50,6 @@ variable "functionapps" {
 
 variable "application_insights" {
   type = map(object({
-    function_app               = string
     log_analytics_workspace_id = string
     application_type           = string
     retention_in_days          = number

@@ -30,13 +30,11 @@ storage_accounts = {
 
 application_insights = {
   scsl = {
-    function_app               = "scsl"
     log_analytics_workspace_id = null
     application_type           = "web"
     retention_in_days          = 90
   }
   scsl_enabler = {
-    function_app               = "scsl-enabler"
     log_analytics_workspace_id = "defaultworkspace-e6b5053b-4c38-4475-a835-a025aeb3d8c7-suk"
     application_type           = "web"
     retention_in_days          = 90

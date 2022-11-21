@@ -76,7 +76,7 @@ resource "azurerm_key_vault_secret" "sa_connection_strings" {
 # App Insights
 resource "azurerm_application_insights" "app_insights" {
   for_each            = var.application_insights
-  name                = "ai-${var.environment}-${var.namespace}-${each.value.function_app}"
+  name                = "ai-${var.environment}-${var.namespace}-${each.key}"
   location            = var.location
   resource_group_name = azurerm_resource_group.main.name
   workspace_id        = each.value.log_analytics_workspace_id
@@ -206,7 +206,7 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "function_app_event
   }
 }
 
-resource "azurerm_dashboard" "function_app_shared_dashboard" {
+resource "azurerm_portal_dashboard" "function_app_shared_dashboard" {
   count                = var.shared_dashboard.create == true ? 1 : 0
   name                 = "${var.environment}-${var.namespace}-${var.application_group}-dashboard"
   resource_group_name  = azurerm_resource_group.main.name
