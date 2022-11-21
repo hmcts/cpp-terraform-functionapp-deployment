@@ -13,8 +13,8 @@ storage_accounts = {
 application_insights = {
   hearingres = {
     log_analytics_workspace_id = null
-    application_type = "web"
-    retention_in_days = 90
+    application_type           = "web"
+    retention_in_days          = 90
   }
 }
 
