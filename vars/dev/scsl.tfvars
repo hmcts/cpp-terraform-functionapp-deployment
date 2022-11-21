@@ -107,7 +107,6 @@ functionapps = {
     create_service_plan          = true
     application_settings = {
       AppClientId                             = "fd78b297-45c6-47c4-aa08-701cda5099aa"
-      AppClientSecret                         = "eDD7Q~~a8r1rvdIm7~ZHDiN1d7PV2SGTCKAtI"
       APPINSIGHTS_INSTRUMENTATIONKEY          = "3d0fd519-ae97-4994-abe2-9ed000f500c6"
       APPLICATIONINSIGHTS_CONNECTION_STRING   = "InstrumentationKey=3d0fd519-ae97-4994-abe2-9ed000f500c6;IngestionEndpoint=https://uksouth-1.in.applicationinsights.azure.com/;LiveEndpoint=https://uksouth.livediagnostics.monitor.azure.com/"
       AppTenantId                             = "e2995d11-9947-4e78-9de6-d44e0603518e"
@@ -122,7 +121,9 @@ functionapps = {
       RotaFileProcessorFunctionSubscriptionId = "e6b5053b-4c38-4475-a835-a025aeb3d8c7"
     }
     application_settings_sensitive_keyvault_lookup        = {}
-    application_settings_sensitive_hashicorp_vault_lookup = {}
+    application_settings_sensitive_hashicorp_vault_lookup = {
+      AppClientSecret = "secret/dev/devccm01/scsl_enabler_client_secret"
+    }
     functionapp_package                                   = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/rotasl/rotasl-enabler-azure-functions/3.0.9/rotasl-enabler-azure-functions-3.0.9.zip"
     site_config = {
       use_32_bit_worker_process = true
