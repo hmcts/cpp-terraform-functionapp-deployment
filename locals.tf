@@ -2,14 +2,14 @@
 locals {
 
   default_application_settings = {
-    APPLICATION_INSIGHTS_IKEY             = azurerm_application_insights.app_insights[var.application_group].instrumentation_key
-    APPINSIGHTS_INSTRUMENTATIONKEY        = azurerm_application_insights.app_insights[var.application_group].instrumentation_key
-    APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.app_insights[var.application_group].connection_string
+    APPLICATION_INSIGHTS_IKEY             = azurerm_application_insights.app_insights.instrumentation_key
+    APPINSIGHTS_INSTRUMENTATIONKEY        = azurerm_application_insights.app_insights.instrumentation_key
+    APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.app_insights.connection_string
   }
 
   default_site_config = {
-    application_insights_connection_string = azurerm_application_insights.app_insights[var.application_group].connection_string
-    application_insights_key               = azurerm_application_insights.app_insights[var.application_group].instrumentation_key
+    application_insights_connection_string = azurerm_application_insights.app_insights.connection_string
+    application_insights_key               = azurerm_application_insights.app_insights.instrumentation_key
   }
 
   sa_name_accesskey_map = {

@@ -49,11 +49,16 @@ variable "functionapps" {
 }
 
 variable "application_insights" {
-  type = map(object({
+  type = object({
     log_analytics_workspace_id = string
     application_type           = string
     retention_in_days          = number
-  }))
+  })
+  default = {
+    log_analytics_workspace_id = null
+    application_type           = "web"
+    retention_in_days          = 90
+  }
 }
 
 variable "smtp_api_connection" {

@@ -29,16 +29,9 @@ storage_accounts = {
 }
 
 application_insights = {
-  scsl = {
-    log_analytics_workspace_id = null
-    application_type           = "web"
-    retention_in_days          = 90
-  }
-  scsl_enabler = {
-    log_analytics_workspace_id = "/subscriptions/e6b5053b-4c38-4475-a835-a025aeb3d8c7/resourcegroups/defaultresourcegroup-suk/providers/microsoft.operationalinsights/workspaces/defaultworkspace-e6b5053b-4c38-4475-a835-a025aeb3d8c7-suk"
-    application_type           = "web"
-    retention_in_days          = 90
-  }
+  log_analytics_workspace_id = null
+  application_type           = "web"
+  retention_in_days          = 90
 }
 
 functionapps = {
@@ -120,11 +113,11 @@ functionapps = {
       RotaFileProcessorFunctionResourceGroup  = "RG-DEV-CCM-SCSL"
       RotaFileProcessorFunctionSubscriptionId = "e6b5053b-4c38-4475-a835-a025aeb3d8c7"
     }
-    application_settings_sensitive_keyvault_lookup        = {}
+    application_settings_sensitive_keyvault_lookup = {}
     application_settings_sensitive_hashicorp_vault_lookup = {
       AppClientSecret = "secret/dev/devccm01/scsl_enabler_client_secret"
     }
-    functionapp_package                                   = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/rotasl/rotasl-enabler-azure-functions/3.0.9/rotasl-enabler-azure-functions-3.0.9.zip"
+    functionapp_package = "https://libraries-internal.mdv.cpp.nonlive/artifactory/list/repocentral/uk/gov/moj/cpp/rotasl/rotasl-enabler-azure-functions/3.0.9/rotasl-enabler-azure-functions-3.0.9.zip"
     site_config = {
       use_32_bit_worker_process = true
     }

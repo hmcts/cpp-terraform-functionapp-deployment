@@ -11,11 +11,9 @@ storage_accounts = {
 }
 
 application_insights = {
-  notifyatt = {
-    log_analytics_workspace_id = null
-    application_type           = "web"
-    retention_in_days          = 90
-  }
+  log_analytics_workspace_id = null
+  application_type           = "web"
+  retention_in_days          = 90
 }
 
 functionapps = {
