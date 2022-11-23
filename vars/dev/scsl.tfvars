@@ -43,8 +43,6 @@ functionapps = {
     asp_zone_balancing_enabled   = false
     create_service_plan          = true
     application_settings = {
-      APPINSIGHTS_INSTRUMENTATIONKEY             = "d367847f-900b-4646-9a6c-29e7fb10d1b3"
-      APPLICATIONINSIGHTS_CONNECTION_STRING      = "InstrumentationKey=d367847f-900b-4646-9a6c-29e7fb10d1b3;IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
       ApplicationInsightsAgent_EXTENSION_VERSION = "~2"
       "AzureWebJobs.cppRotaDataMapper.Disabled"  = 0
       "AzureWebJobs.rotaFileProcessor.Disabled"  = 0
