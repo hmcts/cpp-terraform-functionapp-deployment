@@ -64,11 +64,12 @@ resource "azurerm_storage_account" "main" {
 
 resource "azurerm_key_vault_secret" "sa_connection_strings" {
   for_each     = local.sa_name_connection_strings_map
-  name         = "ado--cpp-terraform-functionapp-deployment--${var.environment}--${each.key}--connection-string"
+  name         = "ado--cpp-terraform-functionapp-deployment--${var.environment}--${each.key}--connection-string-test"
   value        = each.value
   key_vault_id = azurerm_key_vault.main.id
   depends_on = [
-    azurerm_storage_account.main
+    azurerm_storage_account.main,
+    azurerm_key_vault.main
   ]
 }
 
@@ -203,4 +204,12 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "function_app_event
   webhook_endpoint {
     url = "https://${each.value.functionapp_name}.azurewebsites.net/runtime/webhooks/EventGrid?functionName=${each.value.function_name}&code=${module.functionapp[each.value.functionapp_name].function_app_primary_key}"
   }
+}
+
+resource "azurerm_portal_dashboard" "function_app_shared_dashboard" {
+  count                = var.shared_dashboard.create == true ? 1 : 0
+  name                 = "${var.environment}-${var.namespace}-${var.application_group}-dashboard"
+  resource_group_name  = azurerm_resource_group.main.name
+  location             = var.location
+  dashboard_properties = var.shared_dashboard.dashboard_json
 }
