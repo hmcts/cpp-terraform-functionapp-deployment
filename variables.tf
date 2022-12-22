@@ -165,6 +165,12 @@ variable "environment" {
   default     = ""
 }
 
+variable "platform" {
+  description = "platform e.g. nlv or lv"
+  type        = string
+  default     = "nlv"
+}
+
 variable "type" {
   type        = string
   description = "Name of service type"
@@ -180,4 +186,40 @@ variable "shared_dashboard" {
     create         = false
     dashboard_json = "{}"
   }
+}
+
+variable "tag_created_time" {
+  type        = string
+  description = "Timestamp when resource has been created"
+}
+
+variable "tag_created_by" {
+  type        = string
+  description = "User who run the job when resource was created"
+}
+
+variable "tag_git_url" {
+  type        = string
+  description = "GIT URL of the project"
+}
+
+variable "tag_git_branch" {
+  type        = string
+  description = "GIT Branch from where changes being applied"
+}
+
+variable "tag_last_apply" {
+  type        = string
+  description = "Current timestamp when changes applied"
+}
+
+variable "tag_last_apply_by" {
+  type        = string
+  description = "USER ID of the person who is applying the changes"
+}
+
+variable "tags" {
+  type        = map(string)
+  description = "Environment specific tags"
+  default     = {}
 }
