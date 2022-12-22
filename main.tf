@@ -1,22 +1,41 @@
 data "azurerm_subscription" "current" {}
 data "azurerm_client_config" "current" {}
 
-module "tag_set" {
-  source         = "git::https://github.com/hmcts/cpp-module-terraform-azurerm-tag-generator.git?ref=main"
-  namespace      = var.namespace
-  application    = var.application
-  costcode       = var.costcode
-  owner          = var.owner
-  version_number = var.version_number
-  attribute      = var.attribute
-  environment    = var.environment
-  type           = var.type
+# Will be using global module
+# module "tag_set" {
+#   source         = "git::https://github.com/hmcts/cpp-module-terraform-azurerm-tag-generator.git?ref=main"
+#   namespace      = var.namespace
+#   application    = var.application
+#   costcode       = var.costcode
+#   owner          = var.owner
+#   version_number = var.version_number
+#   attribute      = var.attribute
+#   environment    = var.environment
+#   type           = var.type
+# }
+
+module "global" {
+  source = "git::https://github.com/hmcts/cpp-module-terraform-azurerm-global.git?ref=main"
+  //source      = "../tf_module.terraform-global"
+  platform          = var.platform
+  environment       = var.environment
+  tag_created_time  = var.tag_created_time
+  tag_created_by    = var.tag_created_by
+  tag_git_url       = var.tag_git_url
+  tag_git_branch    = var.tag_git_branch
+  tag_last_apply    = var.tag_last_apply
+  tag_last_apply_by = var.tag_last_apply_by
+  tier              = "Back End"
+  application       = var.application
+  business_area     = "Crime"
+  type              = var.type
+  project           = var.application_group
 }
 
 resource "azurerm_resource_group" "main" {
   name     = "rg-${var.environment}-${var.namespace}-${var.application_group}"
   location = var.location
-  tags     = module.tag_set.tags
+  tags     = local.tags
 }
 
 resource "azurerm_key_vault" "main" {
@@ -51,7 +70,7 @@ resource "azurerm_storage_account" "main" {
   min_tls_version                 = each.value.min_tls_version
   allow_nested_items_to_be_public = false
   enable_https_traffic_only       = each.value.enable_https_traffic_only
-  tags                            = module.tag_set.tags
+  tags                            = local.tags
 
   dynamic "identity" {
     for_each = each.value.identity_type == null ? [] : [1]
@@ -81,7 +100,7 @@ resource "azurerm_application_insights" "app_insights" {
   workspace_id        = var.application_insights.log_analytics_workspace_id
   application_type    = var.application_insights.application_type
   retention_in_days   = var.application_insights.retention_in_days
-  tags                = module.tag_set.tags
+  tags                = local.tags
 }
 
 module "functionapp" {
@@ -111,6 +130,7 @@ module "functionapp" {
     azurerm_key_vault_secret.sa_connection_strings,
     azurerm_application_insights.app_insights
   ]
+  tags = local.tags
 }
 
 # API Connections
@@ -123,7 +143,7 @@ resource "azurerm_resource_group_template_deployment" "smtp_api_connection" {
     subscription_id = data.azurerm_subscription.current.subscription_id
   })
   deployment_mode = "Incremental"
-  tags            = module.tag_set.tags
+  tags            = local.tags
 }
 
 resource "azurerm_resource_group_template_deployment" "ssh_api_connection" {
@@ -139,7 +159,7 @@ resource "azurerm_resource_group_template_deployment" "ssh_api_connection" {
     resource_group_name = azurerm_resource_group.main.name
   })
   deployment_mode = "Incremental"
-  tags            = module.tag_set.tags
+  tags            = local.tags
 }
 
 # Logic App
@@ -157,7 +177,7 @@ resource "azurerm_resource_group_template_deployment" "logic_app" {
     subscription_id     = data.azurerm_subscription.current.subscription_id
   })
   deployment_mode = "Incremental"
-  tags            = module.tag_set.tags
+  tags            = local.tags
   depends_on = [
     module.functionapp,
     azurerm_resource_group_template_deployment.smtp_api_connection,
@@ -171,7 +191,7 @@ resource "azurerm_eventgrid_topic" "function_app_eventgrid_topic" {
   name                = each.key
   location            = var.location
   resource_group_name = azurerm_resource_group.main.name
-  tags                = module.tag_set.tags
+  tags                = local.tags
 }
 
 resource "azurerm_eventgrid_event_subscription" "function_app_eventgrid_topic" {

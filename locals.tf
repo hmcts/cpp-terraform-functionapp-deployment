@@ -1,6 +1,13 @@
 
 locals {
 
+  tags = merge(
+    module.global.tags,
+    module.global.global_tags,
+    module.global.global_dynamic_tags,
+    var.tags
+  )
+
   default_application_settings = {
     APPLICATION_INSIGHTS_IKEY             = azurerm_application_insights.app_insights.instrumentation_key
     APPINSIGHTS_INSTRUMENTATIONKEY        = azurerm_application_insights.app_insights.instrumentation_key
