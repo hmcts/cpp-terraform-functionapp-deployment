@@ -192,5 +192,5 @@ variable "use_private_net" {
 variable "subnet_id" {
   description = "Subnet Id of Vnet for Private Subnets"
   type        = string
-  default     = null
+  default     = ""
 }
