@@ -107,8 +107,10 @@ module "functionapp" {
   service_plan_name                                     = each.value.service_plan_name != null ? each.value.service_plan_name : "as-${var.environment}-${var.namespace}-${each.value.application}"
   create_service_plan                                   = each.value.create_service_plan
   key_vault_id                                          = azurerm_key_vault.main.id
-  use_private_net                                       = var.use_private_net
-  subnet_id                                             = var.subnet_id
+  create_subnet                                         = var.create_subnet
+  vnet_name                                             = var.vnet_name
+  vnet_rg_name                                          = var.vnet_rg_name
+  subnet_cidr                                           = var.subnet_cidr
   depends_on = [
     azurerm_key_vault_secret.sa_connection_strings,
     azurerm_application_insights.app_insights

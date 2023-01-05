@@ -182,15 +182,28 @@ variable "shared_dashboard" {
   }
 }
 
+variable "vnet_name" {
+  description = "Vnet Name for Private Subnets"
+  type        = string
+  default     = ""
+}
 
-variable "use_private_net" {
-  description = "Should Use Private net"
+variable "vnet_rg_name" {
+  description = "Vnet Resource Group Name for Private Subnets"
+  type        = string
+  default     = ""
+}
+
+variable "subnet_cidr" {
+  description = "Vnet Subnet CIDR"
+  type        = string
+  default     = ""
+}
+
+
+variable "create_subnet" {
+  description = "Should Create Subnet"
   type        = bool
   default     = false
 }
 
-variable "subnet_id" {
-  description = "Subnet Id of Vnet for Private Subnets"
-  type        = string
-  default     = ""
-}
