@@ -77,5 +77,5 @@ vnet_rg_name = "RG-DEV-CORE-01"
 # | CIDR block size	| Maximum available addresses	| Maximum horizontal scale (instances) |
 # |        /28	    |      11	                    |             5                        |
 # 0 / 16 / 32 / 48 / 64 / 80 / 96 / 112 / 128 /
-subnet_cidr = ["10.89.123.0/28"]
+subnet_cidr = ["10.89.123.16/28"]
 
