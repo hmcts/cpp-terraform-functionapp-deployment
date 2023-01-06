@@ -1,5 +1,7 @@
 # cpp-azure-functionapp-deployment
 
+For Subnet please see https://www.davidc.net/sites/default/subnets/subnets.html?network=10.89.128.0&mask=24&division=31.f4627231
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -61,6 +63,7 @@
 | <a name="input_logicapps"></a> [logicapps](#input\_logicapps) | n/a | `map(map(string))` | `{}` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace, which could be an organization name or abbreviation, e.g. 'eg' or 'cp' | `string` | `""` | no |
 | <a name="input_owner"></a> [owner](#input\_owner) | Name of the project or sqaud within the PDU which manages the resource. May be a persons name or email also | `string` | `""` | no |
+| <a name="input_revision"></a> [revision](#input\_revision) | Revision of Functional App | `string` | `""` | no |
 | <a name="input_shared_dashboard"></a> [shared\_dashboard](#input\_shared\_dashboard) | n/a | <pre>object({<br>    create         = bool<br>    dashboard_json = string<br>  })</pre> | <pre>{<br>  "create": false,<br>  "dashboard_json": "{}"<br>}</pre> | no |
 | <a name="input_smtp_api_connection"></a> [smtp\_api\_connection](#input\_smtp\_api\_connection) | n/a | <pre>object({<br>    create = bool<br>    name   = string<br>  })</pre> | <pre>{<br>  "create": false,<br>  "name": "office365"<br>}</pre> | no |
 | <a name="input_ssh_api_connection"></a> [ssh\_api\_connection](#input\_ssh\_api\_connection) | n/a | <pre>object({<br>    create              = bool<br>    name                = string<br>    userName            = string<br>    hostName            = string<br>    acceptAnySshHostKey = bool<br>  })</pre> | <pre>{<br>  "acceptAnySshHostKey": false,<br>  "create": false,<br>  "hostName": null,<br>  "name": null,<br>  "userName": null<br>}</pre> | no |
