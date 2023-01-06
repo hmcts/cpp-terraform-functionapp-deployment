@@ -196,19 +196,18 @@ variable "vnet_rg_name" {
 
 variable "subnet_cidr" {
   description = "Vnet Subnet CIDR"
-  type    = list(string)
+  type        = list(string)
   default     = []
 }
 
 variable "revision" {
-    description = "Revision of Functional App"
-    type        = string
-    default     = ""
- }
+  description = "Revision of Functional App"
+  type        = string
+  default     = ""
+}
 
 variable "create_subnet" {
   description = "Should Create Subnet"
   type        = bool
   default     = false
 }
-
