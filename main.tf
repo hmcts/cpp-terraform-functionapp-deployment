@@ -111,7 +111,6 @@ module "functionapp" {
   vnet_name                                             = var.vnet_name
   vnet_rg_name                                          = var.vnet_rg_name
   subnet_cidr                                           = var.subnet_cidr
-  revision                                              = var.revision
   environment                                           = var.environment
   depends_on = [
     azurerm_key_vault_secret.sa_connection_strings,

@@ -9,8 +9,6 @@ For subnet please see [this](https://www.davidc.net/sites/default/subnets/subnet
  vnet_rg_name      = "RG-DEV-CORE-01"
  # 0 / 16 / 32 / 48 / 64 / 80 / 96 / 112 / 128 /
  subnet_cidr       = ["10.89.123.0/28"]
- #If you want to create revision of Apps
- #revision          = "-01"
  ```
 
 <!-- BEGIN_TF_DOCS -->
@@ -32,7 +30,7 @@ For subnet please see [this](https://www.davidc.net/sites/default/subnets/subnet
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_functionapp"></a> [functionapp](#module\_functionapp) | ../cpp-module-terraform-azurerm-functionapp | n/a |
+| <a name="module_functionapp"></a> [functionapp](#module\_functionapp) | github.com/hmcts/cpp-module-terraform-azurerm-functionapp.git | main |
 | <a name="module_tag_set"></a> [tag\_set](#module\_tag\_set) | git::https://github.com/hmcts/cpp-module-terraform-azurerm-tag-generator.git | main |
 
 ## Resources
@@ -74,7 +72,6 @@ For subnet please see [this](https://www.davidc.net/sites/default/subnets/subnet
 | <a name="input_logicapps"></a> [logicapps](#input\_logicapps) | n/a | `map(map(string))` | `{}` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace, which could be an organization name or abbreviation, e.g. 'eg' or 'cp' | `string` | `""` | no |
 | <a name="input_owner"></a> [owner](#input\_owner) | Name of the project or sqaud within the PDU which manages the resource. May be a persons name or email also | `string` | `""` | no |
-| <a name="input_revision"></a> [revision](#input\_revision) | Revision of Functional App | `string` | `""` | no |
 | <a name="input_shared_dashboard"></a> [shared\_dashboard](#input\_shared\_dashboard) | n/a | <pre>object({<br>    create         = bool<br>    dashboard_json = string<br>  })</pre> | <pre>{<br>  "create": false,<br>  "dashboard_json": "{}"<br>}</pre> | no |
 | <a name="input_smtp_api_connection"></a> [smtp\_api\_connection](#input\_smtp\_api\_connection) | n/a | <pre>object({<br>    create = bool<br>    name   = string<br>  })</pre> | <pre>{<br>  "create": false,<br>  "name": "office365"<br>}</pre> | no |
 | <a name="input_ssh_api_connection"></a> [ssh\_api\_connection](#input\_ssh\_api\_connection) | n/a | <pre>object({<br>    create              = bool<br>    name                = string<br>    userName            = string<br>    hostName            = string<br>    acceptAnySshHostKey = bool<br>  })</pre> | <pre>{<br>  "acceptAnySshHostKey": false,<br>  "create": false,<br>  "hostName": null,<br>  "name": null,<br>  "userName": null<br>}</pre> | no |

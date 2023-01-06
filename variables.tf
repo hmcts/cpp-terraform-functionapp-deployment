@@ -200,12 +200,6 @@ variable "subnet_cidr" {
   default     = []
 }
 
-variable "revision" {
-  description = "Revision of Functional App"
-  type        = string
-  default     = ""
-}
-
 variable "create_subnet" {
   description = "Should Create Subnet"
   type        = bool

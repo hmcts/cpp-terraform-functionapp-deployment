@@ -79,5 +79,3 @@ vnet_rg_name = "RG-DEV-CORE-01"
 # 0 / 16 / 32 / 48 / 64 / 80 / 96 / 112 / 128 /
 subnet_cidr = ["10.89.123.0/28"]
 
-#If you want to create revision of Apps
-revision = "-01"
