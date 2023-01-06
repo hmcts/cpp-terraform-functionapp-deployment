@@ -2,6 +2,17 @@
 
 For subnet please see [this](https://www.davidc.net/sites/default/subnets/subnets.html?network=10.89.123.0&mask=24&division=31.f4627231). We use **10.89.123.0/24** and split it to **/28**
 
+ Example vars for create_subnet=true
+ ```bash
+ create_subnet     = true
+ vnet_name         = "VN-DEV-INT-01"
+ vnet_rg_name      = "RG-DEV-CORE-01"
+ # 0 / 16 / 32 / 48 / 64 / 80 / 96 / 112 / 128 /
+ subnet_cidr       = ["10.89.123.0/28"]
+ #If you want to create revision of Apps
+ #revision          = "-01"
+ ```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
