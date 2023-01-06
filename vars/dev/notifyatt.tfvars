@@ -64,18 +64,8 @@ environment       = "dev"
 application       = "notifyatt"
 application_group = "notifyatt"
 type              = "functionapp"
-
-# https://learn.microsoft.com/en-gb/azure/app-service/overview-vnet-integration#regional-vnet-integration
-create_subnet = true
-# VN-DEV-INT-01 is 10.89.64.0/18 which is 10.89.64.0 - 10.89.127.255
 vnet_name = "VN-DEV-INT-01"
-
 vnet_rg_name = "RG-DEV-CORE-01"
-
-# Check to see subnets..
-# https://www.davidc.net/sites/default/subnets/subnets.html?network=10.89.123.0&mask=24&division=31.f4627231
-# | CIDR block size	| Maximum available addresses	| Maximum horizontal scale (instances) |
-# |        /28	    |      11	                    |             5                        |
 # 0 / 16 / 32 / 48 / 64 / 80 / 96 / 112 / 128 /
 subnet_cidr = ["10.89.123.16/28"]
 

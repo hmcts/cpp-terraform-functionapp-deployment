@@ -85,7 +85,7 @@ resource "azurerm_application_insights" "app_insights" {
 }
 
 module "functionapp" {
-  source = "github.com/hmcts/cpp-module-terraform-azurerm-functionapp.git?ref=main"
+   source = "github.com/hmcts/cpp-module-terraform-azurerm-functionapp.git?ref=main"
   #source                                                = "../cpp-module-terraform-azurerm-functionapp"
   for_each                                              = var.functionapps
   location                                              = var.location
