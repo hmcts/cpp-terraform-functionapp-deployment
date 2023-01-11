@@ -112,6 +112,7 @@ module "functionapp" {
   vnet_name                                             = each.value.vnet_name
   vnet_rg_name                                          = each.value.vnet_rg_name
   subnet_cidr                                           = each.value.subnet_cidr
+  subnet_name                                           = each.value.subnet_name
   depends_on = [
     azurerm_key_vault_secret.sa_connection_strings,
     azurerm_application_insights.app_insights

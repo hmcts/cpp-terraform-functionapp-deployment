@@ -47,6 +47,8 @@ functionapps = {
     create_subnet = true
     # 0..16..32 (for /28 increment by 16)
     subnet_cidr = ["10.89.123.16/28"]
+    # subnet_cidr and subnet_name is mutually exclusive
+    subnet_name = ""
   }
 }
 
