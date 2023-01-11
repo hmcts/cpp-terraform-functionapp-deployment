@@ -110,8 +110,8 @@ functionapps = {
       use_32_bit_worker_process = true
     }
     application          = "courtreg"
-    create_service_plan  = true
-    service_plan_name    = null
+    create_service_plan  = false
+    service_plan_name    = "as-dev-cpp-courtorders"
     storage_account_name = "sadevccp0101hearingres2"
     vnet_name            = "VN-DEV-INT-01"
     vnet_rg_name         = "RG-DEV-CORE-01"
@@ -161,8 +161,8 @@ functionapps = {
       use_32_bit_worker_process = true
     }
     application          = "hmpps"
-    create_service_plan  = true
-    service_plan_name    = null
+    create_service_plan  = false
+    service_plan_name    = "as-dev-cpp-courtorders"
     storage_account_name = "sadevccp0101hearingres2"
     vnet_name            = "VN-DEV-INT-01"
     vnet_rg_name         = "RG-DEV-CORE-01"
@@ -212,8 +212,8 @@ functionapps = {
       use_32_bit_worker_process = true
     }
     application          = "informantreg"
-    create_service_plan  = true
-    service_plan_name    = null
+    create_service_plan  = false
+    service_plan_name    = "as-dev-cpp-courtorders"
     storage_account_name = "sadevccp0101hearingres2"
     vnet_name            = "VN-DEV-INT-01"
     vnet_rg_name         = "RG-DEV-CORE-01"
@@ -262,8 +262,8 @@ functionapps = {
       use_32_bit_worker_process = true
     }
     application          = "nowsce"
-    create_service_plan  = true
-    service_plan_name    = null
+    create_service_plan  = false
+    service_plan_name    = "as-dev-cpp-courtorders"
     storage_account_name = "sadevccp0101hearingres2"
     vnet_name            = "VN-DEV-INT-01"
     vnet_rg_name         = "RG-DEV-CORE-01"
@@ -312,8 +312,8 @@ functionapps = {
       use_32_bit_worker_process = true
     }
     application          = "prisoncourtreg"
-    create_service_plan  = true
-    service_plan_name    = null
+    create_service_plan  = false
+    service_plan_name    = "as-dev-cpp-courtorders"
     storage_account_name = "sadevccp0101hearingres2"
     vnet_name            = "VN-DEV-INT-01"
     vnet_rg_name         = "RG-DEV-CORE-01"
@@ -364,8 +364,8 @@ functionapps = {
       use_32_bit_worker_process = true
     }
     application          = "legalaid"
-    create_service_plan  = true
-    service_plan_name    = null
+    create_service_plan  = false
+    service_plan_name    = "as-dev-cpp-courtorders"
     storage_account_name = "sadevccp0101hearingres2"
     vnet_name            = "VN-DEV-INT-01"
     vnet_rg_name         = "RG-DEV-CORE-01"
