@@ -42,6 +42,11 @@ functionapps = {
     service_plan_name    = null
     create_service_plan  = true
     storage_account_name = "sadevccp0101notifyattfa2"
+    vnet_name = "VN-DEV-INT-01"
+    vnet_rg_name = "RG-DEV-CORE-01"
+    create_subnet = true
+    # 0 / 16 / 32 / 48 / 64 / 80 / 96 / 112 / 128 /
+    subnet_cidr = ["10.89.123.16/28"]
   }
 }
 
@@ -64,8 +69,4 @@ environment       = "dev"
 application       = "notifyatt"
 application_group = "notifyatt"
 type              = "functionapp"
-vnet_name = "VN-DEV-INT-01"
-vnet_rg_name = "RG-DEV-CORE-01"
-# 0 / 16 / 32 / 48 / 64 / 80 / 96 / 112 / 128 /
-subnet_cidr = ["10.89.123.16/28"]
 

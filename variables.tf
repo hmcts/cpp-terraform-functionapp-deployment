@@ -46,7 +46,19 @@ variable "functionapps" {
     service_plan_name                                     = string
     create_service_plan                                   = bool
     storage_account_name                                  = string
+    vnet_name                                             = string
+    vnet_rg_name                                          = string
+    subnet_cidr                                           = list(string)
+    create_subnet                                         = bool
   }))
+/*
+  default = {
+    vnet_name     = ""
+    vnet_rg_name  = ""
+    subnet_cidr   = []
+    create_subnet = false
+  }
+*/
 }
 
 variable "application_insights" {
@@ -180,28 +192,4 @@ variable "shared_dashboard" {
     create         = false
     dashboard_json = "{}"
   }
-}
-
-variable "vnet_name" {
-  description = "Vnet Name for Private Subnets"
-  type        = string
-  default     = ""
-}
-
-variable "vnet_rg_name" {
-  description = "Vnet Resource Group Name for Private Subnets"
-  type        = string
-  default     = ""
-}
-
-variable "subnet_cidr" {
-  description = "Vnet Subnet CIDR"
-  type        = list(string)
-  default     = []
-}
-
-variable "create_subnet" {
-  description = "Should Create Subnet"
-  type        = bool
-  default     = false
 }
