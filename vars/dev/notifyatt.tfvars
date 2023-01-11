@@ -45,7 +45,7 @@ functionapps = {
     vnet_name = "VN-DEV-INT-01"
     vnet_rg_name = "RG-DEV-CORE-01"
     create_subnet = true
-    # 0 / 16 / 32 / 48 / 64 / 80 / 96 / 112 / 128 /
+    # 0..16..32 (for /28 increment by 16)
     subnet_cidr = ["10.89.123.16/28"]
   }
 }
