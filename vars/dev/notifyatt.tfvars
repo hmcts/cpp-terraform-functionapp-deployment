@@ -48,6 +48,8 @@ functionapps = {
     # 0..16..32 (for /28 increment by 16)
     subnet_cidr = ["10.89.123.16/28"]
     # subnet_cidr and subnet_name is mutually exclusive
+    # To reuse an existing subnet define subnet_name
+    # Example: SN-fa-dev-cpp-notifyatt
     subnet_name = ""
   }
 }

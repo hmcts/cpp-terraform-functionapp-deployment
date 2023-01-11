@@ -50,6 +50,7 @@ variable "functionapps" {
     vnet_rg_name                                          = string
     subnet_cidr                                           = list(string)
     create_subnet                                         = bool
+    subnet_name                                           = string
   }))
 /*
   default = {
