@@ -63,8 +63,8 @@ functionapps = {
     vnet_name            = "VN-DEV-INT-01"
     vnet_rg_name         = "RG-DEV-CORE-01"
     create_subnet        = true
-    # 0..16..32 (for /28 increment by 16)
-    subnet_cidr = ["10.89.123.32/28"]
+    # As this Subnet will be handling 7 FAs will be creating /25 on .121 instead of .123
+    subnet_cidr = ["10.89.121.0/25"]
     # subnet_cidr and subnet_name is mutually exclusive
     # To reuse an existing subnet define subnet_name
     # Example: SN-fa-dev-cpp-courtorders
