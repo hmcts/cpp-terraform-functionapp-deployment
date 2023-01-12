@@ -60,6 +60,15 @@ functionapps = {
     create_service_plan  = true
     service_plan_name    = null
     storage_account_name = "sadevccp0101hearingres2"
+    vnet_name            = "VN-DEV-INT-01"
+    vnet_rg_name         = "RG-DEV-CORE-01"
+    create_subnet        = true
+    # As this Subnet will be handling 7 FAs will be creating /25 on .121 instead of .123
+    subnet_cidr = ["10.89.121.0/25"]
+    # subnet_cidr and subnet_name is mutually exclusive
+    # To reuse an existing subnet define subnet_name
+    # Example: SN-fa-dev-cpp-courtorders
+    subnet_name = ""
   },
   fa-dev-cpp-courtreg = {
     asp_sku                      = "EP1"
@@ -101,9 +110,15 @@ functionapps = {
       use_32_bit_worker_process = true
     }
     application          = "courtreg"
-    create_service_plan  = true
-    service_plan_name    = null
+    create_service_plan  = false
+    service_plan_name    = "as-dev-cpp-courtorders"
     storage_account_name = "sadevccp0101hearingres2"
+    vnet_name            = "VN-DEV-INT-01"
+    vnet_rg_name         = "RG-DEV-CORE-01"
+    create_subnet        = false
+    subnet_cidr          = []
+    # To reuse an existing subnet define subnet_name
+    subnet_name = "SN-fa-dev-cpp-courtorders"
   },
   fa-dev-cpp-hmpps = {
     asp_sku                      = "EP1"
@@ -146,9 +161,16 @@ functionapps = {
       use_32_bit_worker_process = true
     }
     application          = "hmpps"
-    create_service_plan  = true
-    service_plan_name    = null
+    create_service_plan  = false
+    service_plan_name    = "as-dev-cpp-courtorders"
     storage_account_name = "sadevccp0101hearingres2"
+    vnet_name            = "VN-DEV-INT-01"
+    vnet_rg_name         = "RG-DEV-CORE-01"
+    create_subnet        = false
+    subnet_cidr          = []
+    # To reuse an existing subnet define subnet_name
+    subnet_name = "SN-fa-dev-cpp-courtorders"
+
   },
   fa-dev-cpp-informantreg = {
     asp_sku                      = "EP1"
@@ -190,9 +212,15 @@ functionapps = {
       use_32_bit_worker_process = true
     }
     application          = "informantreg"
-    create_service_plan  = true
-    service_plan_name    = null
+    create_service_plan  = false
+    service_plan_name    = "as-dev-cpp-courtorders"
     storage_account_name = "sadevccp0101hearingres2"
+    vnet_name            = "VN-DEV-INT-01"
+    vnet_rg_name         = "RG-DEV-CORE-01"
+    create_subnet        = false
+    subnet_cidr          = []
+    # To reuse an existing subnet define subnet_name
+    subnet_name = "SN-fa-dev-cpp-courtorders"
   },
   fa-dev-cpp-nowsce = {
     asp_sku                      = "EP1"
@@ -234,9 +262,15 @@ functionapps = {
       use_32_bit_worker_process = true
     }
     application          = "nowsce"
-    create_service_plan  = true
-    service_plan_name    = null
+    create_service_plan  = false
+    service_plan_name    = "as-dev-cpp-courtorders"
     storage_account_name = "sadevccp0101hearingres2"
+    vnet_name            = "VN-DEV-INT-01"
+    vnet_rg_name         = "RG-DEV-CORE-01"
+    create_subnet        = false
+    subnet_cidr          = []
+    # To reuse an existing subnet define subnet_name
+    subnet_name = "SN-fa-dev-cpp-courtorders"
   },
   fa-dev-cpp-prisoncourtreg = {
     asp_sku                      = "EP1"
@@ -278,9 +312,15 @@ functionapps = {
       use_32_bit_worker_process = true
     }
     application          = "prisoncourtreg"
-    create_service_plan  = true
-    service_plan_name    = null
+    create_service_plan  = false
+    service_plan_name    = "as-dev-cpp-courtorders"
     storage_account_name = "sadevccp0101hearingres2"
+    vnet_name            = "VN-DEV-INT-01"
+    vnet_rg_name         = "RG-DEV-CORE-01"
+    create_subnet        = false
+    subnet_cidr          = []
+    # To reuse an existing subnet define subnet_name
+    subnet_name = "SN-fa-dev-cpp-courtorders"
   },
   fa-dev-cpp-legalaid = {
     asp_sku                      = "EP1"
@@ -324,9 +364,15 @@ functionapps = {
       use_32_bit_worker_process = true
     }
     application          = "legalaid"
-    create_service_plan  = true
-    service_plan_name    = null
+    create_service_plan  = false
+    service_plan_name    = "as-dev-cpp-courtorders"
     storage_account_name = "sadevccp0101hearingres2"
+    vnet_name            = "VN-DEV-INT-01"
+    vnet_rg_name         = "RG-DEV-CORE-01"
+    create_subnet        = false
+    subnet_cidr          = []
+    # To reuse an existing subnet define subnet_name
+    subnet_name = "SN-fa-dev-cpp-courtorders"
   }
 }
 

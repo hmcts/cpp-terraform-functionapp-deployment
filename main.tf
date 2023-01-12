@@ -105,7 +105,7 @@ resource "azurerm_application_insights" "app_insights" {
 
 module "functionapp" {
   source = "github.com/hmcts/cpp-module-terraform-azurerm-functionapp.git?ref=main"
-  # source                                                = "../cpp-module-terraform-azurerm-functionapp"
+  #source                                                = "../cpp-module-terraform-azurerm-functionapp"
   for_each                                              = var.functionapps
   location                                              = var.location
   function_app_name                                     = each.key
@@ -126,6 +126,12 @@ module "functionapp" {
   service_plan_name                                     = each.value.service_plan_name != null ? each.value.service_plan_name : "as-${var.environment}-${var.namespace}-${each.value.application}"
   create_service_plan                                   = each.value.create_service_plan
   key_vault_id                                          = azurerm_key_vault.main.id
+  environment                                           = var.environment
+  create_subnet                                         = each.value.create_subnet
+  vnet_name                                             = each.value.vnet_name
+  vnet_rg_name                                          = each.value.vnet_rg_name
+  subnet_cidr                                           = each.value.subnet_cidr
+  subnet_name                                           = each.value.subnet_name
   depends_on = [
     azurerm_key_vault_secret.sa_connection_strings,
     azurerm_application_insights.app_insights

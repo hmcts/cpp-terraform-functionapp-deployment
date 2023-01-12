@@ -46,7 +46,20 @@ variable "functionapps" {
     service_plan_name                                     = string
     create_service_plan                                   = bool
     storage_account_name                                  = string
+    vnet_name                                             = string
+    vnet_rg_name                                          = string
+    subnet_cidr                                           = list(string)
+    create_subnet                                         = bool
+    subnet_name                                           = string
   }))
+  /*
+  default = {
+    vnet_name     = ""
+    vnet_rg_name  = ""
+    subnet_cidr   = []
+    create_subnet = false
+  }
+*/
 }
 
 variable "application_insights" {
