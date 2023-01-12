@@ -52,7 +52,7 @@ variable "functionapps" {
     create_subnet                                         = bool
     subnet_name                                           = string
   }))
-/*
+  /*
   default = {
     vnet_name     = ""
     vnet_rg_name  = ""
