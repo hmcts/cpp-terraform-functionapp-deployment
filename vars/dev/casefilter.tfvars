@@ -43,6 +43,15 @@ functionapps = {
     service_plan_name    = null
     create_service_plan  = true
     storage_account_name = "sadevcpp0101casefilfa2"
+    vnet_name            = "VN-DEV-INT-01"
+    vnet_rg_name         = "RG-DEV-CORE-01"
+    create_subnet        = false
+    # 0..16..32 (for /28 increment by 16)
+    subnet_cidr = ["10.89.123.48/28"]
+    # subnet_cidr and subnet_name is mutually exclusive
+    # To reuse an existing subnet define subnet_name
+    # Example: SN-fa-dev-cpp-notifyatt
+    subnet_name = ""
   }
 }
 
